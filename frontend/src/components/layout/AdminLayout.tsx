@@ -21,8 +21,9 @@ import {
   UserCheck,
   X,
   CalendarCheck,
-  CalendarDays
-  ,FileSignature
+  CalendarDays,
+  FileSignature,
+  IndianRupee,
 } from "lucide-react";
 import { getUser, logout } from "../../lib/auth";
 import NotificationBell from "./NotificationBell";
@@ -42,6 +43,7 @@ const navItems: { label: string; path: string; icon: any; roles: string[] }[] = 
   { label: "Meeting Mgmt", path: "/meeting-management", icon: ClipboardList, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "HR", "TEAM_LEAD", "SALES_MANAGER", "EMPLOYEE"] },
   { label: "Knowledge Base", path: "/knowledge-base", icon: BookOpen, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "HR", "TEAM_LEAD", "SALES_MANAGER", "EMPLOYEE"] },
   { label: "HRMS", path: "/hrms", icon: UserCheck, roles: ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"] },
+  { label: "Payroll", path: "/payroll", icon: IndianRupee, roles: ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"] },
   { label: "Tickets", path: "/tickets", icon: Ticket, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "HR", "TEAM_LEAD", "SALES_MANAGER", "EMPLOYEE"] },
   { label: "CRM", path: "/crm", icon: BarChart3, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "HR"] },
   { label: "Proposals & Quotes", path: "/commercial", icon: FileSignature, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"] },

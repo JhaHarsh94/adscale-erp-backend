@@ -551,6 +551,8 @@ model Employee {
   warningsIssued         Warning[]           @relation("WarningIssuedBy")
   hrNotes                HrNote[]            @relation("HrNoteEmployee")
   hrNotesCreated         HrNote[]            @relation("HrNoteCreatedBy")
+  salaryStructures       EmployeeSalaryStructure[]
+  payslips               Payslip[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -2189,4 +2191,110 @@ model HrNote {
 
   @@index([employeeId])
   @@map("hr_notes")
+}
+
+enum ComponentType {
+  EARNING
+  DEDUCTION
+}
+
+enum PayrollStatus {
+  DRAFT
+  PROCESSED
+  CANCELLED
+}
+
+model SalaryComponent {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  type        ComponentType
+  description String?
+  isActive    Boolean       @default(true)
+  sortOrder   Int           @default(0)
+
+  employeeStructures EmployeeSalaryStructure[]
+  payslipComponents  PayslipComponent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("salary_components")
+}
+
+model EmployeeSalaryStructure {
+  id              String   @id @default(uuid())
+  employeeId      String
+  componentId     String
+  amount          Float
+  effectiveFrom   DateTime
+  effectiveTo     DateTime?
+  isCurrent       Boolean  @default(true)
+
+  employee  Employee        @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  component SalaryComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, componentId, effectiveFrom])
+  @@map("employee_salary_structures")
+}
+
+model Payroll {
+  id          String        @id @default(uuid())
+  month       Int
+  year        Int
+  status      PayrollStatus @default(DRAFT)
+  totalGross  Float         @default(0)
+  totalDeductions Float    @default(0)
+  totalNet    Float         @default(0)
+  employeeCount Int         @default(0)
+  processedAt DateTime?
+  notes       String?
+
+  payslips Payslip[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([month, year])
+  @@map("payrolls")
+}
+
+model Payslip {
+  id              String   @id @default(uuid())
+  payrollId       String
+  employeeId      String
+  grossPay        Float    @default(0)
+  totalDeductions Float    @default(0)
+  netPay          Float    @default(0)
+  workingDays     Int      @default(0)
+  presentDays     Int      @default(0)
+  absentDays      Int      @default(0)
+  leaveDays       Int      @default(0)
+  remarks         String?
+
+  payroll  Payroll  @relation(fields: [payrollId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  components PayslipComponent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([payrollId, employeeId])
+  @@index([payrollId])
+  @@index([employeeId])
+  @@map("payslips")
+}
+
+model PayslipComponent {
+  id            String          @id @default(uuid())
+  payslipId     String
+  componentId   String
+  amount        Float
+  component     SalaryComponent @relation(fields: [componentId], references: [id])
+  payslip       Payslip         @relation(fields: [payslipId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([payslipId, componentId])
+  @@map("payslip_components")
 }

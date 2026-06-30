@@ -23,6 +23,7 @@ import MeetingsPage from "./pages/MeetingsPage";
 import MeetingManagementPage from "./pages/MeetingManagementPage";
 import KnowledgeBasePage from "./pages/KnowledgeBasePage";
 import HrmsPage from "./pages/HrmsPage";
+import PayrollPage from "./pages/PayrollPage";
 import UsersPage from "./pages/UsersPage";
 import SetupPage from "./pages/SetupPage";
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/meeting-management" element={<MeetingManagementPage />} />
           <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
           <Route path="/hrms" element={<HrmsPage />} />
+          <Route path="/payroll" element={<PayrollPage />} />
           <Route path="/users" element={<UsersPage />} />
           </Route>
         </Route>
