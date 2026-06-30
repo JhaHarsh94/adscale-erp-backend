@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { Plus, RefreshCcw, Calendar, Clock, Users, XCircle, Play, CheckCircle, X, FileText, ListChecks, UserCheck, AlignLeft, Trash2, Save, CalendarDays, MapPin, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, RefreshCcw, Calendar, Clock, XCircle, Play, CheckCircle, X, FileText, ListChecks, UserCheck, AlignLeft, Trash2, Save, CalendarDays, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { apiClient } from "../api/client";
-import { getUser } from "../lib/auth";
-import type { FormalMeeting, MeetingManagementDashboard, MeetingActionItem, MeetingAgendaItem, MeetingAttendanceRecord, MeetingMinutes } from "../types/meetingManagement";
+import type { FormalMeeting, MeetingManagementDashboard } from "../types/meetingManagement";
 
 const field = "w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500";
-const user = getUser();
 
 const statusBadge: Record<string, string> = {
   SCHEDULED: "bg-blue-50 text-blue-700",
