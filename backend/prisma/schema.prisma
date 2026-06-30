@@ -541,6 +541,16 @@ model Employee {
   approvalSteps          ApprovalStep[]
   meetingAttendance      MeetingAttendance[]
   assignedActionItems    MeetingActionItem[]
+  performanceReviews     PerformanceReview[] @relation("ReviewEmployee")
+  reviewsGiven           PerformanceReview[] @relation("ReviewReviewer")
+  appraisals             Appraisal[]         @relation("AppraisalEmployee")
+  appraisalsGiven        Appraisal[]         @relation("AppraisalReviewer")
+  promotions             Promotion[]         @relation("PromotionEmployee")
+  promotionsApproved     Promotion[]         @relation("PromotionApprovedBy")
+  warnings               Warning[]           @relation("WarningEmployee")
+  warningsIssued         Warning[]           @relation("WarningIssuedBy")
+  hrNotes                HrNote[]            @relation("HrNoteEmployee")
+  hrNotesCreated         HrNote[]            @relation("HrNoteCreatedBy")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -2041,4 +2051,142 @@ model KnowledgeView {
   @@index([articleId])
   @@index([userId])
   @@map("knowledge_views")
+}
+
+enum ReviewRating {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+}
+
+enum AppraisalStatus {
+  DRAFT
+  SUBMITTED
+  ACKNOWLEDGED
+}
+
+enum WarningType {
+  VERBAL
+  WRITTEN
+  FINAL
+}
+
+enum WarningStatus {
+  ACTIVE
+  EXPIRED
+  RESOLVED
+}
+
+model PerformanceReview {
+  id             String       @id @default(uuid())
+  employeeId     String
+  reviewerId     String?
+  reviewDate     DateTime
+  rating         ReviewRating @default(THREE)
+  feedback       String?
+  goals          String?
+  strengths      String?
+  improvements   String?
+  status         String       @default("DRAFT")
+  submittedAt    DateTime?
+  nextReviewDate DateTime?
+
+  employee Employee @relation("ReviewEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  reviewer Employee? @relation("ReviewReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([reviewerId])
+  @@map("performance_reviews")
+}
+
+model Appraisal {
+  id             String          @id @default(uuid())
+  employeeId     String
+  reviewDate     DateTime
+  reviewerId     String?
+  currentCtc     Float?
+  newCtc         Float?
+  incrementPct   Float?
+  rating         ReviewRating    @default(THREE)
+  comments       String?
+  status         AppraisalStatus @default(DRAFT)
+  acknowledgedAt DateTime?
+  effectiveDate  DateTime?
+
+  employee Employee @relation("AppraisalEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  reviewer Employee? @relation("AppraisalReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@map("appraisals")
+}
+
+model Promotion {
+  id              String   @id @default(uuid())
+  employeeId      String
+  fromDesignation String?
+  toDesignation   String?
+  fromSalary      Float?
+  toSalary        Float?
+  effectiveDate   DateTime
+  reason          String?
+  approvedById    String?
+  status          String   @default("APPROVED")
+
+  employee  Employee? @relation("PromotionEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  approvedBy Employee? @relation("PromotionApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@map("promotions")
+}
+
+model Warning {
+  id          String        @id @default(uuid())
+  employeeId  String
+  type        WarningType   @default(VERBAL)
+  title       String
+  description String?
+  issuedById  String?
+  status      WarningStatus @default(ACTIVE)
+  issuedDate  DateTime
+  expiresAt   DateTime?
+  resolvedAt  DateTime?
+  notes       String?
+
+  employee Employee @relation("WarningEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  issuedBy Employee? @relation("WarningIssuedBy", fields: [issuedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@map("warnings")
+}
+
+model HrNote {
+  id          String   @id @default(uuid())
+  employeeId  String
+  note        String
+  createdById String?
+  isPrivate   Boolean  @default(false)
+
+  employee  Employee? @relation("HrNoteEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  createdBy Employee? @relation("HrNoteCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@map("hr_notes")
 }

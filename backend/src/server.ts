@@ -33,6 +33,7 @@ import chatRoutes from "./modules/chat/chat.routes";
 import meetingRoutes from "./modules/meetings/meeting.routes";
 import meetingManagementRoutes from "./modules/meetingManagement/meetingManagement.routes";
 import knowledgeBaseRoutes from "./modules/knowledgeBase/knowledgeBase.routes";
+import hrmsRoutes from "./modules/hrms/hrms.routes";
 
 dotenv.config();
 
@@ -171,6 +172,7 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/meetings", meetingRoutes);
 app.use("/api/meeting-management", meetingManagementRoutes);
 app.use("/api/knowledge-base", knowledgeBaseRoutes);
+app.use("/api/hrms", hrmsRoutes);
 app.use(errorMiddleware);
 
 server.listen(PORT, () => {
