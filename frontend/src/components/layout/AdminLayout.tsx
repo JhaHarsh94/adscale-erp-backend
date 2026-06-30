@@ -130,6 +130,7 @@ function AdminLayout() {
             </div>
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
               <NotificationBell />
+              <button onClick={handleLogout} className="flex rounded-xl border border-slate-200 bg-white p-2 text-slate-600 hover:bg-slate-50 lg:hidden" title="Logout"><LogOut size={18} /></button>
               <div className="hidden rounded-2xl border border-slate-200 bg-white px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-bold text-slate-600 shadow-sm md:block truncate max-w-[150px]">{user?.name || "Admin"}</div>
             </div>
           </div>
