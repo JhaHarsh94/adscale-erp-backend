@@ -4,6 +4,7 @@ import {
   createAppraisal, createHrNote, createPromotion, createReview, createWarning, dashboard,
   deleteAppraisal, deletePromotion, deleteReview, deleteWarning, listAppraisals, listHrNotes,
   listPromotions, listReviews, listWarnings, getReview, updateAppraisal, updateReview, updateWarning,
+  updatePromotion, getEmployeeLifecycle,
 } from "./hrms.controller";
 
 const router = Router();
@@ -26,6 +27,7 @@ router.delete("/appraisals/:id", protect, allowRoles(...adminRoles), deleteAppra
 
 router.get("/promotions", protect, allowRoles(...readRoles), listPromotions);
 router.post("/promotions", protect, allowRoles(...adminRoles), createPromotion);
+router.put("/promotions/:id", protect, allowRoles(...adminRoles), updatePromotion);
 router.delete("/promotions/:id", protect, allowRoles(...adminRoles), deletePromotion);
 
 router.get("/warnings", protect, allowRoles(...readRoles), listWarnings);
@@ -35,5 +37,7 @@ router.delete("/warnings/:id", protect, allowRoles(...adminRoles), deleteWarning
 
 router.get("/hr-notes", protect, allowRoles(...readRoles), listHrNotes);
 router.post("/hr-notes", protect, allowRoles(...adminRoles), createHrNote);
+
+router.get("/employees/:id/lifecycle", protect, allowRoles(...readRoles), getEmployeeLifecycle);
 
 export default router;

@@ -3,8 +3,25 @@ export interface PayrollDashboard {
   totalComponents: number;
   totalStructures: number;
   totalPayrolls: number;
+  totalBonuses: number;
   currentMonth: number;
   currentYear: number;
+}
+
+export interface Bonus {
+  id: string;
+  employeeId: string;
+  type: "PERFORMANCE" | "FESTIVAL" | "REFERRAL" | "SPOT" | "ANNUAL" | "OTHER";
+  title: string;
+  description: string | null;
+  amount: number;
+  currency: string;
+  status: "APPROVED" | "PAID" | "CANCELLED";
+  paidAt: string | null;
+  payDate: string | null;
+  payrollId: string | null;
+  employee: { id: string; employeeCode: string; user: { id: string; name: string } };
+  createdAt: string;
 }
 
 export interface SalaryComponent {

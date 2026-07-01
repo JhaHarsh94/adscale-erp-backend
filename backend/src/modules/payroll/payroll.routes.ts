@@ -3,6 +3,8 @@ import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   createComponent, createPayroll, dashboard, deleteComponent, deletePayroll, deleteStructure,
   getPayroll, listComponents, listPayrolls, listStructures, processPayroll, updateComponent, upsertStructure,
+  approvePayroll, cancelPayroll, generatePayslipPdf,
+  listBonuses, createBonus, updateBonus, deleteBonus,
 } from "./payroll.controller";
 
 const router = Router();
@@ -25,6 +27,15 @@ router.get("/payrolls", protect, allowRoles(...readRoles), listPayrolls);
 router.get("/payrolls/:id", protect, allowRoles(...readRoles), getPayroll);
 router.post("/payrolls", protect, allowRoles(...adminRoles), createPayroll);
 router.put("/payrolls/:id/process", protect, allowRoles(...adminRoles), processPayroll);
+router.put("/payrolls/:id/approve", protect, allowRoles(...adminRoles), approvePayroll);
+router.put("/payrolls/:id/cancel", protect, allowRoles(...adminRoles), cancelPayroll);
 router.delete("/payrolls/:id", protect, allowRoles(...adminRoles), deletePayroll);
+
+router.get("/bonuses", protect, allowRoles(...readRoles), listBonuses);
+router.post("/bonuses", protect, allowRoles(...adminRoles), createBonus);
+router.put("/bonuses/:id", protect, allowRoles(...adminRoles), updateBonus);
+router.delete("/bonuses/:id", protect, allowRoles(...adminRoles), deleteBonus);
+
+router.get("/payslips/:id/pdf", protect, allowRoles(...readRoles), generatePayslipPdf);
 
 export default router;

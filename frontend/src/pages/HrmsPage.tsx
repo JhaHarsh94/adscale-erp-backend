@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Plus, RefreshCcw, XCircle, Trash2, Star, TrendingUp, AlertTriangle, CheckCircle, Save, Briefcase } from "lucide-react";
+import { Plus, RefreshCcw, XCircle, Trash2, Star, TrendingUp, AlertTriangle, CheckCircle, Save, Briefcase, StickyNote, User } from "lucide-react";
 import { apiClient } from "../api/client";
-import type { PerformanceReview, Appraisal, Promotion, Warning, HrmsDashboard } from "../types/hrms";
+import type { PerformanceReview, Appraisal, Promotion, Warning, HrNote, HrmsDashboard } from "../types/hrms";
 
 const field = "w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500";
 
@@ -12,6 +12,8 @@ const tabs = [
   { key: "appraisals", label: "Appraisals", icon: TrendingUp },
   { key: "promotions", label: "Promotions", icon: Briefcase },
   { key: "warnings", label: "Warnings", icon: AlertTriangle },
+  { key: "hr-notes", label: "HR Notes", icon: StickyNote },
+  { key: "lifecycle", label: "Lifecycle", icon: User },
 ];
 
 export default function HrmsPage() {
@@ -24,6 +26,11 @@ export default function HrmsPage() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [warningsList, setWarningsList] = useState<Warning[]>([]);
   const [showForm, setShowForm] = useState(false);
+
+  const [hrNotes, setHrNotes] = useState<HrNote[]>([]);
+  const [selectedEmpId, setSelectedEmpId] = useState("");
+  const [lifecycle, setLifecycle] = useState<any>(null);
+  const [noteForm, setNoteForm] = useState({ employeeId: "", note: "", isPrivate: false });
 
   const blankReview = { employeeId: "", reviewerId: "", reviewDate: "", rating: "THREE", feedback: "", goals: "", strengths: "", improvements: "" };
   const blankAppraisal = { employeeId: "", reviewerId: "", reviewDate: "", rating: "THREE", currentCtc: "", newCtc: "", comments: "", effectiveDate: "" };
@@ -94,12 +101,41 @@ export default function HrmsPage() {
     } catch { setMessage("Failed"); }
   }
 
+  async function loadHrNotes(employeeId: string) {
+    try {
+      setSelectedEmpId(employeeId);
+      const res = await apiClient.get(`/hrms/hr-notes?employeeId=${employeeId}`);
+      setHrNotes(res.data.data || []);
+    } catch { setMessage("Failed to load HR notes"); }
+  }
+
+  async function createHrNote() {
+    try {
+      if (!noteForm.employeeId || !noteForm.note) { setMessage("Employee and note required"); return; }
+      await apiClient.post("/hrms/hr-notes", noteForm);
+      setMessage("Note created"); setNoteForm({ employeeId: "", note: "", isPrivate: false });
+      if (noteForm.employeeId) void loadHrNotes(noteForm.employeeId);
+    } catch { setMessage("Failed"); }
+  }
+
+  async function loadLifecycle(employeeId: string) {
+    try {
+      setSelectedEmpId(employeeId);
+      const res = await apiClient.get(`/hrms/employees/${employeeId}/lifecycle`);
+      setLifecycle(res.data.data);
+    } catch { setMessage("Failed to load employee lifecycle"); }
+  }
+
   async function remove(endpoint: string, id: string) {
     try { await apiClient.delete(`/hrms/${endpoint}/${id}`); setMessage("Deleted"); void load(); } catch { setMessage("Failed"); }
   }
 
   async function resolveWarning(id: string) {
     try { await apiClient.put(`/hrms/warnings/${id}`, { status: "RESOLVED" }); setMessage("Warning resolved"); void load(); } catch { setMessage("Failed"); }
+  }
+
+  async function acknowledgeAppraisal(id: string) {
+    try { await apiClient.put(`/hrms/appraisals/${id}`, { status: "ACKNOWLEDGED" }); setMessage("Appraisal acknowledged"); void load(); } catch { setMessage("Failed"); }
   }
 
   const cards = [
@@ -109,9 +145,9 @@ export default function HrmsPage() {
     { label: "Warnings", value: dashboard?.totalWarnings || 0, icon: AlertTriangle, color: "text-red-600" },
   ];
 
-  const currentForm: any = activeTab === "reviews" ? reviewForm : activeTab === "appraisals" ? appraisalForm : activeTab === "promotions" ? promotionForm : warningForm;
-  const setForm: any = activeTab === "reviews" ? setReviewForm : activeTab === "appraisals" ? setAppraisalForm : activeTab === "promotions" ? setPromotionForm : setWarningForm;
-  const createFn = activeTab === "reviews" ? createReview : activeTab === "appraisals" ? createAppraisal : activeTab === "promotions" ? createPromotion : createWarning;
+  const currentForm: any = activeTab === "reviews" ? reviewForm : activeTab === "appraisals" ? appraisalForm : activeTab === "promotions" ? promotionForm : activeTab === "warnings" ? warningForm : noteForm;
+  const setForm: any = activeTab === "reviews" ? setReviewForm : activeTab === "appraisals" ? setAppraisalForm : activeTab === "promotions" ? setPromotionForm : activeTab === "warnings" ? setWarningForm : setNoteForm;
+  const createFn = activeTab === "reviews" ? createReview : activeTab === "appraisals" ? createAppraisal : activeTab === "promotions" ? createPromotion : activeTab === "warnings" ? createWarning : createHrNote;
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -299,7 +335,7 @@ export default function HrmsPage() {
                   <div className="flex items-center gap-2 flex-wrap">
                     <AlertTriangle size={14} className="text-red-500" />
                     <span className="font-black">{w.employee?.user.name || "Unknown"}</span>
-                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-black text-red-700">{w.type}</span>
+                    <span className={`rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-black text-red-700`}>{w.type}</span>
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-black ${w.status === "RESOLVED" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>{w.status}</span>
                   </div>
                   <p className="mt-1 text-sm font-bold">{w.title}</p>
@@ -313,6 +349,125 @@ export default function HrmsPage() {
               </div>
             </div>
           ))}
+
+          {/* HR Notes Tab */}
+          {activeTab === "hr-notes" && (
+            <div className="space-y-3">
+              <div className="rounded-2xl border border-rose-100 bg-rose-50 p-4 space-y-3">
+                <h3 className="font-black text-rose-800">New HR Note</h3>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <select className={field} value={noteForm.employeeId} onChange={(e) => { setNoteForm({ ...noteForm, employeeId: e.target.value }); if (e.target.value) loadHrNotes(e.target.value); }}>
+                    <option value="">Select employee *</option>
+                    {employees.map((e) => <option key={e.id} value={e.id}>{e.name}</option>)}
+                  </select>
+                  <label className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                    <input type="checkbox" checked={noteForm.isPrivate} onChange={(e) => setNoteForm({ ...noteForm, isPrivate: e.target.checked })} />
+                    Private note (HR only)
+                  </label>
+                  <textarea className={`${field} md:col-span-2 min-h-[80px]`} placeholder="Note content *" value={noteForm.note} onChange={(e) => setNoteForm({ ...noteForm, note: e.target.value })} />
+                </div>
+                <button onClick={createHrNote} className="rounded-xl bg-rose-700 px-5 py-2.5 text-sm font-black text-white"><Save size={16} className="inline mr-1" />Add Note</button>
+              </div>
+
+              {hrNotes.length === 0 && selectedEmpId && <p className="py-4 text-center text-sm font-bold text-slate-400">No HR notes for this employee</p>}
+              {hrNotes.map((n) => (
+                <div key={n.id} className="rounded-2xl border bg-white p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <StickyNote size={14} className="text-rose-500" />
+                        <span className="font-black text-sm">{n.employee?.user.name || "Unknown"}</span>
+                        {n.isPrivate && <span className="rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-black text-rose-700">Private</span>}
+                        {n.createdBy && <span className="text-xs text-slate-400">by {n.createdBy.user.name}</span>}
+                      </div>
+                      <p className="mt-1 text-sm text-slate-700 whitespace-pre-wrap">{n.note}</p>
+                      <p className="mt-1 text-[10px] text-slate-400">{new Date(n.createdAt).toLocaleString()}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {!selectedEmpId && <p className="py-4 text-center text-sm font-bold text-slate-400">Select an employee above to view notes</p>}
+            </div>
+          )}
+
+          {/* Employee Lifecycle Tab */}
+          {activeTab === "lifecycle" && (
+            <div className="space-y-3">
+              <div className="rounded-2xl border border-rose-100 bg-rose-50 p-4">
+                <select className={field} value={selectedEmpId} onChange={(e) => { setSelectedEmpId(e.target.value); if (e.target.value) loadLifecycle(e.target.value); }}>
+                  <option value="">Select employee *</option>
+                  {employees.map((e) => <option key={e.id} value={e.id}>{e.name}</option>)}
+                </select>
+              </div>
+
+              {!selectedEmpId && <p className="py-4 text-center text-sm font-bold text-slate-400">Select an employee to view their lifecycle</p>}
+
+              {lifecycle && (
+                <div className="space-y-3">
+                  <div className="rounded-2xl border bg-white p-4">
+                    <h3 className="font-black text-lg">{lifecycle.user?.name || "Unknown"}</h3>
+                    <p className="text-xs text-slate-500">Code: {lifecycle.employeeCode} | Dept: {lifecycle.department?.name || "-"} | Designation: {lifecycle.designation?.name || "-"}</p>
+                    <p className="text-xs text-slate-500">Status: {lifecycle.employmentStatus} | Joined: {lifecycle.joiningDate ? new Date(lifecycle.joiningDate).toLocaleDateString() : "-"}</p>
+                  </div>
+
+                  {lifecycle.salaryStructures?.length > 0 && (
+                    <div className="rounded-2xl border bg-white p-4">
+                      <h4 className="font-black text-sm mb-2">Current Salary Structure</h4>
+                      {lifecycle.salaryStructures.map((s: any) => (
+                        <div key={s.id} className="flex items-center justify-between py-1 text-sm">
+                          <span>{s.component.name}</span>
+                          <span className="font-bold">₹{s.amount.toLocaleString()}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="rounded-2xl border bg-white p-4">
+                      <h4 className="font-black text-sm mb-2">Performance Reviews ({lifecycle.performanceReviews?.length || 0})</h4>
+                      {lifecycle.performanceReviews?.slice(0, 5).map((r: any) => (
+                        <div key={r.id} className="text-xs py-1 border-b border-slate-50 last:border-0">
+                          <span className="font-bold">{new Date(r.reviewDate).toLocaleDateString()}</span>
+                          <span className="ml-2 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-black text-amber-700">{ratingLabel[r.rating]}/5</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="rounded-2xl border bg-white p-4">
+                      <h4 className="font-black text-sm mb-2">Appraisals ({lifecycle.appraisals?.length || 0})</h4>
+                      {lifecycle.appraisals?.slice(0, 5).map((a: any) => (
+                        <div key={a.id} className="text-xs py-1 border-b border-slate-50 last:border-0">
+                          <span className="font-bold">{new Date(a.reviewDate).toLocaleDateString()}</span>
+                          <span className="ml-1 text-slate-500">CTC: {a.currentCtc ? `₹${a.currentCtc.toLocaleString()}` : "?"} → {a.newCtc ? `₹${a.newCtc.toLocaleString()}` : "?"}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="rounded-2xl border bg-white p-4">
+                      <h4 className="font-black text-sm mb-2">Promotions ({lifecycle.promotions?.length || 0})</h4>
+                      {lifecycle.promotions?.slice(0, 5).map((p: any) => (
+                        <div key={p.id} className="text-xs py-1 border-b border-slate-50 last:border-0">
+                          <span className="font-bold">{new Date(p.effectiveDate).toLocaleDateString()}</span>
+                          <span className="ml-1 text-slate-500">{p.fromDesignation || "?"} → {p.toDesignation || "?"}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="rounded-2xl border bg-white p-4">
+                      <h4 className="font-black text-sm mb-2">Warnings ({lifecycle.warnings?.length || 0})</h4>
+                      {lifecycle.warnings?.slice(0, 5).map((w: any) => (
+                        <div key={w.id} className="text-xs py-1 border-b border-slate-50 last:border-0">
+                          <span className="font-bold">{new Date(w.issuedDate).toLocaleDateString()}</span>
+                          <span className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-black ${w.status === "RESOLVED" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>{w.status}</span>
+                          <span className="ml-1 text-slate-500">{w.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </div>

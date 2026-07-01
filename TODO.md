@@ -30,8 +30,8 @@
 - [x] Phase 15 - Video Conferencing (Jitsi Meet integration)
 - [x] Phase 16 - Meeting Management (agenda, MOM, action items)
 - [x] Phase 17 - Knowledge Base (SOPs, training, HR policies)
-- [ ] Phase 18 - HRMS (performance, appraisals, promotions)
-- [ ] Phase 19 - Payroll (salary, deductions, payslips)
+- [x] Phase 18 - HRMS (performance, appraisals, promotions, warnings, HR notes, employee lifecycle)
+- [x] Phase 19 - Payroll (salary structure, components, attendance-based calc, bonuses/incentives, payslip PDF, approve/cancel)
 - [ ] Phase 20 - Recruitment Module (job openings, applicants)
 - [ ] Phase 21 - Client Portal (separate client dashboard)
 - [ ] Phase 22 - SEO Management

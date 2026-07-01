@@ -163,6 +163,23 @@ export const createPromotion = asyncHandler(async (req, res) => {
   return successResponse(res, 201, "Promotion created", promotion);
 });
 
+export const updatePromotion = asyncHandler(async (req, res) => {
+  const data: Prisma.PromotionUpdateInput = {};
+  if (req.body.fromDesignation !== undefined) data.fromDesignation = clean(req.body.fromDesignation) || undefined;
+  if (req.body.toDesignation !== undefined) data.toDesignation = clean(req.body.toDesignation) || undefined;
+  if (req.body.fromSalary !== undefined) data.fromSalary = req.body.fromSalary;
+  if (req.body.toSalary !== undefined) data.toSalary = req.body.toSalary;
+  if (req.body.reason !== undefined) data.reason = clean(req.body.reason) || undefined;
+  if (req.body.status) data.status = req.body.status;
+  if (req.body.effectiveDate) data.effectiveDate = new Date(req.body.effectiveDate);
+  const promotion = await prisma.promotion.update({
+    where: { id: req.params.id },
+    data,
+    include: { employee: { select: empSelect }, approvedBy: { select: empSelect } },
+  });
+  return successResponse(res, 200, "Promotion updated", promotion);
+});
+
 export const deletePromotion = asyncHandler(async (req, res) => {
   await prisma.promotion.delete({ where: { id: req.params.id } });
   return successResponse(res, 200, "Promotion deleted");
@@ -221,6 +238,29 @@ export const listHrNotes = asyncHandler(async (req, res) => {
     orderBy: { createdAt: "desc" },
   });
   return successResponse(res, 200, "HR notes fetched", notes);
+});
+
+/* ─── Employee Lifecycle ─── */
+export const getEmployeeLifecycle = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const employee = await prisma.employee.findUnique({
+    where: { id },
+    include: {
+      user: { select: { id: true, name: true, email: true } },
+      department: true,
+      designation: true,
+      performanceReviews: { orderBy: { reviewDate: "desc" } },
+      appraisals: { orderBy: { reviewDate: "desc" } },
+      promotions: { orderBy: { effectiveDate: "desc" } },
+      warnings: { orderBy: { issuedDate: "desc" } },
+      hrNotes: { orderBy: { createdAt: "desc" }, take: 10 },
+      salaryStructures: { where: { isCurrent: true }, include: { component: true } },
+      attendances: { orderBy: { attendanceDate: "desc" }, take: 30 },
+      leaveRequests: { orderBy: { createdAt: "desc" }, take: 10 },
+    },
+  });
+  if (!employee) throw new AppError("Employee not found", 404);
+  return successResponse(res, 200, "Employee lifecycle fetched", employee);
 });
 
 export const createHrNote = asyncHandler(async (req, res) => {
