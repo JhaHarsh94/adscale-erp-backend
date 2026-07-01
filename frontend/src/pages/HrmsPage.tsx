@@ -304,7 +304,10 @@ export default function HrmsPage() {
                   {a.currentCtc && <p className="mt-1 text-xs font-bold">CTC: ₹{a.currentCtc.toLocaleString()} → {a.newCtc ? `₹${a.newCtc.toLocaleString()}` : "TBD"}</p>}
                   {a.comments && <p className="mt-1 text-sm text-slate-600">{a.comments}</p>}
                 </div>
-                <button onClick={() => remove("appraisals", a.id)} className="rounded-lg border p-1.5 text-red-400 hover:bg-red-50"><Trash2 size={14} /></button>
+                <div className="flex items-center gap-1">
+                  {a.status === "SUBMITTED" && <button onClick={() => acknowledgeAppraisal(a.id)} className="rounded-lg border p-1.5 text-green-500 hover:bg-green-50" title="Acknowledge"><CheckCircle size={14} /></button>}
+                  <button onClick={() => remove("appraisals", a.id)} className="rounded-lg border p-1.5 text-red-400 hover:bg-red-50"><Trash2 size={14} /></button>
+                </div>
               </div>
             </div>
           ))}

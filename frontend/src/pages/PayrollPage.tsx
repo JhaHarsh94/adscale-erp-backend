@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Plus, RefreshCcw, Trash2, Save, IndianRupee, CheckCircle, Eye, XCircle, Download, Gift, Edit2 } from "lucide-react";
 import { apiClient } from "../api/client";
-import type { PayrollDashboard, SalaryComponent, PayrollRun, EmployeeSalaryStructure, PayslipComponent } from "../types/payroll";
+import type { PayrollDashboard, SalaryComponent, PayrollRun, EmployeeSalaryStructure } from "../types/payroll";
 
 const field = "w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold outline-none focus:border-blue-500";
 

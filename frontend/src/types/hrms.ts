@@ -77,6 +77,7 @@ export interface HrNote {
   note: string;
   createdById?: string | null;
   isPrivate: boolean;
+  employee?: { id: string; employeeCode: string; user: { id: string; name: string; email: string } } | null;
   createdBy?: { id: string; employeeCode: string; user: { id: string; name: string; email: string } } | null;
   createdAt: string;
   updatedAt: string;

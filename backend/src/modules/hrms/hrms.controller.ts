@@ -234,7 +234,7 @@ export const listHrNotes = asyncHandler(async (req, res) => {
   if (!req.query.employeeId) throw new AppError("employeeId is required", 400);
   const notes = await prisma.hrNote.findMany({
     where: { employeeId: String(req.query.employeeId) },
-    include: { createdBy: { select: empSelect } },
+    include: { employee: { select: empSelect }, createdBy: { select: empSelect } },
     orderBy: { createdAt: "desc" },
   });
   return successResponse(res, 200, "HR notes fetched", notes);
