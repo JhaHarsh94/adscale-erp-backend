@@ -25,7 +25,19 @@ import KnowledgeBasePage from "./pages/KnowledgeBasePage";
 import HrmsPage from "./pages/HrmsPage";
 import PayrollPage from "./pages/PayrollPage";
 import UsersPage from "./pages/UsersPage";
+import RecruitmentPage from "./pages/RecruitmentPage";
 import SetupPage from "./pages/SetupPage";
+import ClientLoginPage from "./pages/ClientLoginPage";
+import ClientDashboardPage from "./pages/ClientDashboardPage";
+import ClientProjectsPage from "./pages/ClientProjectsPage";
+import ClientTicketsPage from "./pages/ClientTicketsPage";
+import ClientFilesPage from "./pages/ClientFilesPage";
+import ClientApprovalsPage from "./pages/ClientApprovalsPage";
+import ClientMeetingNotesPage from "./pages/ClientMeetingNotesPage";
+import ClientProtectedRoute from "./routes/ClientProtectedRoute";
+import ClientLayout from "./components/layout/ClientLayout";
+import ClientUsersPage from "./pages/ClientUsersPage";
+import SeoPage from "./pages/SeoPage";
 
 function App() {
   return (
@@ -33,7 +45,19 @@ function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/setup" element={<SetupPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/client/login" element={<ClientLoginPage />} />
       <Route path="/review/:type/:token" element={<CommercialReviewPage />} />
+
+      <Route element={<ClientProtectedRoute />}>
+        <Route element={<ClientLayout />}>
+          <Route path="/client/dashboard" element={<ClientDashboardPage />} />
+          <Route path="/client/projects" element={<ClientProjectsPage />} />
+          <Route path="/client/tickets" element={<ClientTicketsPage />} />
+          <Route path="/client/files" element={<ClientFilesPage />} />
+          <Route path="/client/approvals" element={<ClientApprovalsPage />} />
+          <Route path="/client/meetings" element={<ClientMeetingNotesPage />} />
+        </Route>
+      </Route>
 
       <Route element={<SetupGuard />}>
         <Route element={<ProtectedRoute />}>
@@ -65,7 +89,10 @@ function App() {
           <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
           <Route path="/hrms" element={<HrmsPage />} />
           <Route path="/payroll" element={<PayrollPage />} />
+          <Route path="/recruitment" element={<RecruitmentPage />} />
           <Route path="/users" element={<UsersPage />} />
+          <Route path="/client-users" element={<ClientUsersPage />} />
+          <Route path="/seo" element={<SeoPage />} />
           </Route>
         </Route>
       </Route>

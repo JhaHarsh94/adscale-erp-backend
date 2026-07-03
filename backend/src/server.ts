@@ -35,6 +35,9 @@ import meetingManagementRoutes from "./modules/meetingManagement/meetingManageme
 import knowledgeBaseRoutes from "./modules/knowledgeBase/knowledgeBase.routes";
 import hrmsRoutes from "./modules/hrms/hrms.routes";
 import payrollRoutes from "./modules/payroll/payroll.routes";
+import recruitmentRoutes from "./modules/recruitment/recruitment.routes";
+import clientPortalRoutes from "./modules/clientPortal/clientPortal.routes";
+import seoRoutes from "./modules/seo/seo.routes";
 
 dotenv.config();
 
@@ -175,6 +178,9 @@ app.use("/api/meeting-management", meetingManagementRoutes);
 app.use("/api/knowledge-base", knowledgeBaseRoutes);
 app.use("/api/hrms", hrmsRoutes);
 app.use("/api/payroll", payrollRoutes);
+app.use("/api/recruitment", recruitmentRoutes);
+app.use("/api/client-portal", clientPortalRoutes);
+app.use("/api/seo", seoRoutes);
 app.use(errorMiddleware);
 
 server.listen(PORT, () => {
