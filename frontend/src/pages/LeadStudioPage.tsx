@@ -138,7 +138,7 @@ function LeadStudioPage() {
   async function handleSyncToSheet() {
     setSheetLoading(true);
     try {
-      const res = await apiClient.post("/crm/leads/sync-to-sheet");
+      await apiClient.post("/crm/leads/sync-to-sheet");
       await checkSheet();
     } finally {
       setSheetLoading(false);
@@ -148,11 +148,11 @@ function LeadStudioPage() {
   async function handleImportFromSheet() {
     setSheetLoading(true);
     try {
-      const res = await apiClient.post("/crm/leads/import-from-sheet");
-      if (res.data.data?.recentLeads) {
+      const { data } = await apiClient.post("/crm/leads/import-from-sheet");
+      if (data.data?.recentLeads) {
         setLeads((prev) => {
           const existingIds = new Set(prev.map((l) => l.id));
-          const newOnes = res.data.data.recentLeads.filter(
+          const newOnes = data.data.recentLeads.filter(
             (l: Lead) => !existingIds.has(l.id)
           );
           return [...newOnes, ...prev];
