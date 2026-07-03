@@ -9,7 +9,8 @@ const APPS_SCRIPT_URL =
 function fetchUrl(
   url: string,
   method: string = "GET",
-  body?: unknown
+  body?: unknown,
+  redirects: number = 5
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
@@ -21,13 +22,28 @@ function fetchUrl(
       path: parsed.pathname + parsed.search,
       method,
       headers: {
-        "User-Agent": "AdScale-ERP/1.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         ...(body ? { "Content-Type": "application/json" } : {}),
       },
-      timeout: 10000,
+      timeout: 15000,
     };
 
     const req = mod.request(options, (res) => {
+      if (
+        (res.statusCode === 301 ||
+          res.statusCode === 302 ||
+          res.statusCode === 307 ||
+          res.statusCode === 308) &&
+        res.headers.location &&
+        redirects > 0
+      ) {
+        const redirectUrl = res.headers.location.startsWith("http")
+          ? res.headers.location
+          : `${parsed.protocol}//${parsed.host}${res.headers.location}`;
+        resolve(fetchUrl(redirectUrl, method, body, redirects - 1));
+        return;
+      }
+
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => resolve(data));
