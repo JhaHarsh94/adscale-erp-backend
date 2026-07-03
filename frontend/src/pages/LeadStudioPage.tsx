@@ -221,7 +221,12 @@ function LeadStudioPage() {
         setLeads((prev) => prev.filter((l) => l.id !== id));
       });
 
-      socket.on("leads:imported", () => {
+      socket.on("leads:imported", (data: { count: number }) => {
+        if (data?.count > 0) {
+          setSyncMsg(`Auto-imported ${data.count} new leads from sheet!`);
+          setSyncMsgType("success");
+          setTimeout(() => setSyncMsg(null), 5000);
+        }
         loadLeads();
       });
 

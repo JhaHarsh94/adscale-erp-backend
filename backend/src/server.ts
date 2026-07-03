@@ -38,6 +38,7 @@ import payrollRoutes from "./modules/payroll/payroll.routes";
 import recruitmentRoutes from "./modules/recruitment/recruitment.routes";
 import clientPortalRoutes from "./modules/clientPortal/clientPortal.routes";
 import seoRoutes from "./modules/seo/seo.routes";
+import { startSheetPoller } from "./services/sheetPoller";
 
 dotenv.config();
 
@@ -185,4 +186,5 @@ app.use(errorMiddleware);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  startSheetPoller();
 });
