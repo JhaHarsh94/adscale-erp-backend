@@ -1,16 +1,14 @@
-import { Response } from "express";
 import prisma from "../../config/prisma";
 import { AppError } from "../../utils/AppError";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { successResponse } from "../../utils/response";
-import type { AuthRequest } from "../../middlewares/auth.middleware";
 
 const GOOGLE_SUGGEST = "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=in&q=";
 
 const projectInclude = { select: { id: true, name: true } };
 
 /* ─── Dashboard ─── */
-export const getSeoDashboard = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const getSeoDashboard = asyncHandler(async (req, res) => {
   const [totalProjects, totalKeywords, keywordStats, totalAudits, recentAudits] = await Promise.all([
     prisma.seoProject.count(),
     prisma.seoKeyword.count(),
@@ -42,7 +40,7 @@ export const getSeoDashboard = asyncHandler(async (req: AuthRequest, res: Respon
 });
 
 /* ─── SEO Projects ─── */
-export const listSeoProjects = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const listSeoProjects = asyncHandler(async (req, res) => {
   const projects = await prisma.seoProject.findMany({
     orderBy: { createdAt: "desc" },
     include: {
@@ -53,7 +51,7 @@ export const listSeoProjects = asyncHandler(async (req: AuthRequest, res: Respon
   return successResponse(res, 200, "SEO projects", projects);
 });
 
-export const getSeoProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const getSeoProject = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const project = await prisma.seoProject.findUnique({
     where: { id },
@@ -68,7 +66,7 @@ export const getSeoProject = asyncHandler(async (req: AuthRequest, res: Response
   return successResponse(res, 200, "SEO project", project);
 });
 
-export const createSeoProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const createSeoProject = asyncHandler(async (req, res) => {
   const { projectId, domain, targetCity, targetCountry, notes } = req.body;
   if (!projectId || !domain) throw new AppError("projectId and domain are required", 400);
 
@@ -88,7 +86,7 @@ export const createSeoProject = asyncHandler(async (req: AuthRequest, res: Respo
   return successResponse(res, 201, "SEO project created", seoProject);
 });
 
-export const updateSeoProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const updateSeoProject = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { domain, targetCity, targetCountry, notes } = req.body;
   const seoProject = await prisma.seoProject.update({
@@ -98,14 +96,14 @@ export const updateSeoProject = asyncHandler(async (req: AuthRequest, res: Respo
   return successResponse(res, 200, "SEO project updated", seoProject);
 });
 
-export const deleteSeoProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteSeoProject = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await prisma.seoProject.delete({ where: { id } });
   return successResponse(res, 200, "SEO project deleted");
 });
 
 /* ─── Keywords ─── */
-export const listKeywords = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const listKeywords = asyncHandler(async (req, res) => {
   const { seoProjectId } = req.query;
   const where: Record<string, unknown> = {};
   if (seoProjectId) where.seoProjectId = String(seoProjectId);
@@ -117,7 +115,7 @@ export const listKeywords = asyncHandler(async (req: AuthRequest, res: Response)
   return successResponse(res, 200, "Keywords", keywords);
 });
 
-export const createKeyword = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const createKeyword = asyncHandler(async (req, res) => {
   const { seoProjectId, keyword, searchVolume, keywordDifficulty } = req.body;
   if (!seoProjectId || !keyword) throw new AppError("seoProjectId and keyword are required", 400);
   const seoProject = await prisma.seoProject.findUnique({ where: { id: seoProjectId } });
@@ -133,7 +131,7 @@ export const createKeyword = asyncHandler(async (req: AuthRequest, res: Response
   return successResponse(res, 201, "Keyword created", kw);
 });
 
-export const updateKeyword = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const updateKeyword = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { currentPosition, searchVolume, keywordDifficulty } = req.body;
   const data: Record<string, unknown> = {};
@@ -156,14 +154,14 @@ export const updateKeyword = asyncHandler(async (req: AuthRequest, res: Response
   return successResponse(res, 200, "Keyword updated", kw);
 });
 
-export const deleteKeyword = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteKeyword = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await prisma.seoKeyword.delete({ where: { id } });
   return successResponse(res, 200, "Keyword deleted");
 });
 
 /* ─── Audits ─── */
-export const listAudits = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const listAudits = asyncHandler(async (req, res) => {
   const { seoProjectId } = req.query;
   const where: Record<string, unknown> = {};
   if (seoProjectId) where.seoProjectId = String(seoProjectId);
@@ -178,7 +176,7 @@ export const listAudits = asyncHandler(async (req: AuthRequest, res: Response) =
   return successResponse(res, 200, "Audits", audits);
 });
 
-export const createAudit = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const createAudit = asyncHandler(async (req, res) => {
   const { seoProjectId, score, totalIssues, criticalIssues, passedChecks, warnings, summary } = req.body;
   if (!seoProjectId) throw new AppError("seoProjectId is required", 400);
   const audit = await prisma.seoAudit.create({
@@ -196,14 +194,14 @@ export const createAudit = asyncHandler(async (req: AuthRequest, res: Response) 
   return successResponse(res, 201, "Audit created", audit);
 });
 
-export const deleteAudit = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteAudit = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await prisma.seoAudit.delete({ where: { id } });
   return successResponse(res, 200, "Audit deleted");
 });
 
 /* ─── Backlinks ─── */
-export const listBacklinks = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const listBacklinks = asyncHandler(async (req, res) => {
   const { seoProjectId } = req.query;
   const where: Record<string, unknown> = {};
   if (seoProjectId) where.seoProjectId = String(seoProjectId);
@@ -215,7 +213,7 @@ export const listBacklinks = asyncHandler(async (req: AuthRequest, res: Response
   return successResponse(res, 200, "Backlinks", backlinks);
 });
 
-export const createBacklink = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const createBacklink = asyncHandler(async (req, res) => {
   const { seoProjectId, sourceUrl, targetUrl, domainAuthority, isFollow } = req.body;
   if (!seoProjectId || !sourceUrl) throw new AppError("seoProjectId and sourceUrl are required", 400);
   const bl = await prisma.seoBacklink.create({
@@ -230,7 +228,7 @@ export const createBacklink = asyncHandler(async (req: AuthRequest, res: Respons
   return successResponse(res, 201, "Backlink created", bl);
 });
 
-export const updateBacklink = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const updateBacklink = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { domainAuthority, status, isFollow } = req.body;
   const data: Record<string, unknown> = {};
@@ -242,7 +240,7 @@ export const updateBacklink = asyncHandler(async (req: AuthRequest, res: Respons
   return successResponse(res, 200, "Backlink updated", bl);
 });
 
-export const deleteBacklink = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteBacklink = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await prisma.seoBacklink.delete({ where: { id } });
   return successResponse(res, 200, "Backlink deleted");
@@ -250,7 +248,7 @@ export const deleteBacklink = asyncHandler(async (req: AuthRequest, res: Respons
 
 /* ─── Projects without SEO ─── */
 /* ─── Keyword Suggestions ─── */
-export const suggestKeywords = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const suggestKeywords = asyncHandler(async (req, res) => {
   const { q } = req.query;
   if (!q || String(q).length < 2) throw new AppError("Query must be at least 2 characters", 400);
   try {
@@ -263,7 +261,7 @@ export const suggestKeywords = asyncHandler(async (req: AuthRequest, res: Respon
   }
 });
 
-export const getProjectsWithoutSeo = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const getProjectsWithoutSeo = asyncHandler(async (req, res) => {
   const projects = await prisma.project.findMany({
     where: { seo: null },
     select: { id: true, name: true },

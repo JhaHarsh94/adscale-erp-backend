@@ -11,23 +11,40 @@
 | 6 | Client CRM | Complete |
 | 7 | Proposal, quotation and contract system | Complete |
 | 8 | Project management | Complete |
-| 9 | Ticket management | Next |
-| 10-31 | Remaining roadmap modules | Planned |
+| 9 | Ticket management | Complete |
+| 10 | Task management | Complete |
+| 11 | Work log system | Complete |
+| 12 | Approval management | Complete |
+| 13 | File & asset management | Complete |
+| 14 | Internal chat system | Complete |
+| 15 | Video conferencing system | Complete |
+| 16 | Meeting management | Complete |
+| 17 | Knowledge base | Complete |
+| 18 | HRMS | Complete |
+| 19 | Payroll | Complete |
+| 20 | Recruitment module | Complete |
+| 21-31 | Remaining roadmap modules | Planned |
 
-## Phase 7 delivered
+## Phase 9-19 delivered
 
-- Proposal, quotation and contract builders with line items and server-calculated totals
-- Draft, sent, viewed, accepted, rejected, expired and cancelled states
-- Proposal-to-quotation and quotation-to-contract conversion
-- PDF export with branded commercial-document templates
-- Public, tokenized client review and acceptance/rejection workflow
-- Immutable approval activity log with actor and IP metadata
-- CRM lead/client integration, dashboard totals and role-protected APIs
+- Ticket management with SLA tracking, categories, priorities, and escalation
+- Task management with Kanban, dependencies, recurring tasks, and attachments
+- Work log system with daily reports and productivity tracking
+- Approval management with multi-step workflows, file review, and client approvals
+- File & asset management with folders, version control, and activity logs
+- Internal chat system with direct messages, group chats, department/project channels
+- Video conferencing with Jitsi Meet integration, instant and scheduled meetings
+- Meeting management with agendas, attendance, minutes of meeting, and action items
+- Knowledge base with categories, articles, files, and view tracking
+- HRMS with performance reviews, appraisals, promotions, warnings, and HR notes
+- Payroll with salary structures, payslips, bonuses, and attendance-based calculations
 
-## Phase 8 delivered
+## Phase 20 delivered
 
-- CRM-connected client projects with budgets, dates, priority, health and progress
-- Project manager and team member allocation with workload percentages
-- Milestone lifecycle with automatic project progress calculation
-- Project timelines and auditable status history
-- Project dashboard, filtering and role-protected APIs
+- Job openings with department, job type, experience range, salary range, and status tracking
+- Applicant tracking with source, current company, experience, notice period, and salary expectations
+- Interview scheduling with type, round tracking, meeting links, and status management
+- Interview feedback with ratings, skills assessment, and hiring recommendations
+- Offer letters with CTC breakdown, joining date, department, and acceptance workflow
+- Dashboard with total jobs, applicants, interviews, offers, and applicant status distribution
+- Full role-based access control integrated with existing permission system

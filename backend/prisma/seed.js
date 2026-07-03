@@ -103,6 +103,7 @@ async function main() {
     "COMMERCIAL",
     "PROJECTS",
     "TICKETS",
+    "RECRUITMENT",
   ];
   const standardActions = ["VIEW", "CREATE", "UPDATE", "DELETE"];
   const permissions = permissionModules.flatMap((module) =>
@@ -132,9 +133,9 @@ async function main() {
     SUPER_ADMIN: () => true,
     DIRECTOR: () => true,
     OPERATIONS_MANAGER: (permission) =>
-      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS"].includes(permission.module),
+      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS", "RECRUITMENT"].includes(permission.module),
     HR: (permission) =>
-      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES"].includes(permission.module),
+      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "RECRUITMENT"].includes(permission.module),
     SALES_MANAGER: (permission) =>
       ["CRM", "COMMERCIAL"].includes(permission.module) ||
       (permission.module === "EMPLOYEES" && permission.action === "VIEW"),
