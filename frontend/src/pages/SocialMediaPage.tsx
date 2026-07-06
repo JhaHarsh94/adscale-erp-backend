@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search, Share2, Globe, CalendarDays, Hash, Plus, Trash2, Save, RefreshCcw, XCircle, BarChart3, Image, CheckCircle, Clock, AlertCircle, ExternalLink } from "lucide-react";
+import { Search, Share2, Globe, CalendarDays, Hash, Plus, Trash2, Save, RefreshCcw, XCircle, BarChart3, CheckCircle, Clock } from "lucide-react";
 import { apiClient } from "../api/client";
 import type { SocialDashboard, SocialAccount, SocialPost, SocialCalendar } from "../types/socialMedia";
 

@@ -25,6 +25,14 @@ export function getUser(): AuthUser | null {
 }
 
 export function logout() {
+  const token = getToken();
+  if (token) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://187.127.134.114:30917/api";
+    fetch(`${baseUrl}/auth/logout`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    }).catch(() => {});
+  }
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
 }
