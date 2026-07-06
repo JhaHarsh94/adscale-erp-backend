@@ -6,7 +6,7 @@ services:
     branch: master
     rootDir: backend
     buildCommand: npm install && npx prisma generate && npm run build
-    startCommand: npm start
+    startCommand: npx prisma migrate deploy && npm start
     plan: free
     region: oregon
     envVars:

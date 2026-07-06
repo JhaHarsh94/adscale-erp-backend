@@ -38,17 +38,30 @@ import payrollRoutes from "./modules/payroll/payroll.routes";
 import recruitmentRoutes from "./modules/recruitment/recruitment.routes";
 import clientPortalRoutes from "./modules/clientPortal/clientPortal.routes";
 import seoRoutes from "./modules/seo/seo.routes";
+import socialMediaRoutes from "./modules/socialMedia/socialMedia.routes";
 import { startSheetPoller } from "./services/sheetPoller";
 
 dotenv.config();
+
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("UNHANDLED REJECTION:", reason);
+});
+
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] } });
 
+// Trust NGINX Ingress / reverse proxy
+app.set("trust proxy", 1);
+
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
-  : ["http://localhost:5173", "http://localhost:3000", "http://localhost"];
+  : ["http://localhost:5173", "http://localhost:3000", "http://187.127.134.114:30917"];
 
 app.use(
   cors({
@@ -182,6 +195,7 @@ app.use("/api/payroll", payrollRoutes);
 app.use("/api/recruitment", recruitmentRoutes);
 app.use("/api/client-portal", clientPortalRoutes);
 app.use("/api/seo", seoRoutes);
+app.use("/api/social-media", socialMediaRoutes);
 app.use(errorMiddleware);
 
 server.listen(PORT, () => {
