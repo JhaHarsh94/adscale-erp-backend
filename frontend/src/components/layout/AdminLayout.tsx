@@ -29,6 +29,8 @@ import {
   TrendingUp,
   Share2,
   Wallet,
+  Target,
+  Receipt,
 } from "lucide-react";
 import { getUser, logout } from "../../lib/auth";
 import NotificationBell from "./NotificationBell";
@@ -52,6 +54,8 @@ const navItems: { label: string; path: string; icon: any; roles: string[] }[] = 
   { label: "SEO", path: "/seo", icon: TrendingUp, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"] },
   { label: "Social Media", path: "/social-media", icon: Share2, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"] },
   { label: "Google Ads", path: "/google-ads", icon: Wallet, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"] },
+  { label: "Meta Ads", path: "/meta-ads", icon: Target, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"] },
+  { label: "Finance", path: "/finance", icon: Receipt, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "ACCOUNTS", "SALES_MANAGER"] },
   { label: "Payroll", path: "/payroll", icon: IndianRupee, roles: ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"] },
   { label: "Tickets", path: "/tickets", icon: Ticket, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "HR", "TEAM_LEAD", "SALES_MANAGER", "EMPLOYEE"] },
   { label: "CRM", path: "/crm", icon: BarChart3, roles: ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "HR"] },
