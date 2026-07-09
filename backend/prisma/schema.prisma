@@ -488,6 +488,8 @@ model User {
   receivedPayments      Payment[]            @relation("PaymentReceivedBy")
   expensesPaid          Expense[]            @relation("ExpensePaidBy")
   vendorPaymentsPaid    VendorPayment[]      @relation("VendorPaymentPaidBy")
+  dashboardWidgets      DashboardWidget[]
+  reportExports         ReportExport[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -3197,4 +3199,72 @@ model TaxDetail {
   updatedAt DateTime @updatedAt
 
   @@map("tax_details")
+}
+
+model AnalyticsSnapshot {
+  id        String   @id @default(uuid())
+  type      String   // REVENUE, EMPLOYEE, PROJECT, TICKET, ATTENDANCE, LEAD
+  label     String
+  value     Float
+  metadata  Json?
+  period    String   // DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  @@index([type, date])
+  @@index([period, date])
+  @@map("analytics_snapshots")
+}
+
+model KpiMetric {
+  id          String   @id @default(uuid())
+  name        String
+  label       String
+  category    String   // REVENUE, PRODUCTIVITY, CLIENTS, PROJECTS, TICKETS, ATTENDANCE, HR
+  value       Float    @default(0)
+  target      Float?
+  unit        String   @default("count")
+  trend       String   @default("neutral") // up, down, neutral
+  icon        String?
+  color       String?
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@map("kpi_metrics")
+}
+
+model DashboardWidget {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // KPI_CARD, CHART, TABLE, LIST
+  config    Json
+  position  Int      @default(0)
+  size      String   @default("1x1") // 1x1, 2x1, 1x2, 2x2
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, position])
+  @@map("dashboard_widgets")
+}
+
+model ReportExport {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  type        String   // CEO_SUMMARY, REVENUE_REPORT, EMPLOYEE_REPORT, PROJECT_REPORT, TICKET_REPORT
+  format      String   @default("PDF")
+  config      Json?
+  fileUrl     String?
+  status      String   @default("PENDING") // PENDING, GENERATING, COMPLETED, FAILED
+  generatedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("report_exports")
 }

@@ -43,6 +43,7 @@ import LeadStudioPage from "./pages/LeadStudioPage";
 import GoogleAdsPage from "./pages/GoogleAdsPage";
 import MetaAdsPage from "./pages/MetaAdsPage";
 import FinancePage from "./pages/FinancePage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 
 function App() {
   return (
@@ -103,6 +104,7 @@ function App() {
           <Route path="/google-ads" element={<GoogleAdsPage />} />
           <Route path="/meta-ads" element={<MetaAdsPage />} />
           <Route path="/finance" element={<FinancePage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
           </Route>
         </Route>
       </Route>

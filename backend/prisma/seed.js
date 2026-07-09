@@ -104,6 +104,7 @@ async function main() {
     "PROJECTS",
     "TICKETS",
     "RECRUITMENT",
+    "ANALYTICS",
   ];
   const standardActions = ["VIEW", "CREATE", "UPDATE", "DELETE"];
   const permissions = permissionModules.flatMap((module) =>
@@ -133,12 +134,14 @@ async function main() {
     SUPER_ADMIN: () => true,
     DIRECTOR: () => true,
     OPERATIONS_MANAGER: (permission) =>
-      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS", "RECRUITMENT"].includes(permission.module),
+      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS", "RECRUITMENT", "ANALYTICS"].includes(permission.module),
     HR: (permission) =>
-      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "RECRUITMENT"].includes(permission.module),
+      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "RECRUITMENT", "ANALYTICS"].includes(permission.module),
     SALES_MANAGER: (permission) =>
-      ["CRM", "COMMERCIAL"].includes(permission.module) ||
+      ["CRM", "COMMERCIAL", "ANALYTICS"].includes(permission.module) ||
       (permission.module === "EMPLOYEES" && permission.action === "VIEW"),
+    DIRECTOR: (permission) =>
+      ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS", "RECRUITMENT", "ANALYTICS"].includes(permission.module) || permission.action === "VIEW",
     TEAM_LEAD: (permission) =>
       (["EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "TICKETS"].includes(permission.module) &&
         !["DELETE"].includes(permission.action)),
