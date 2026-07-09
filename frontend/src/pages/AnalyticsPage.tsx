@@ -11,8 +11,6 @@ import type {
   DepartmentPerformance, ClientSatisfaction,
 } from "../types/analytics";
 
-const f = "w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold outline-none focus:border-indigo-500";
-
 const tabs = [
   { key: "dashboard", label: "CEO Dashboard", icon: BarChart3 },
   { key: "employees", label: "Employees", icon: UsersRound },
@@ -43,8 +41,6 @@ export default function AnalyticsPage() {
   const [productivity, setProductivity] = useState<ProductivityAnalytics | null>(null);
   const [deptPerf, setDeptPerf] = useState<DepartmentPerformance[]>([]);
   const [satisfaction, setSatisfaction] = useState<ClientSatisfaction | null>(null);
-
-  function msgOk(s: string) { setMsg(s); setTimeout(() => setMsg(""), 3000); }
 
   async function loadCeo() {
     setLoading(true);
