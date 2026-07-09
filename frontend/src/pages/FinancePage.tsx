@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import {
-  Search, BarChart3, Plus, Trash2, Save, RefreshCcw, XCircle,
+  BarChart3, Plus, Trash2, Save, RefreshCcw, XCircle,
   DollarSign, Receipt, Wallet, Building2, Landmark, Percent,
-  FileText, CreditCard, CalendarDays, IndianRupee, Edit3,
+  FileText, CreditCard, IndianRupee, Edit3, TrendingUp,
 } from "lucide-react";
 import { apiClient } from "../api/client";
 import type {
@@ -85,7 +85,6 @@ export default function FinancePage() {
   const [editTax, setEditTax] = useState<string | null>(null);
 
   // Filters
-  const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
   function msgOk(s: string) { setMsg(s); setTimeout(() => setMsg(""), 3000); }
