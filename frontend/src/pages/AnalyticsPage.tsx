@@ -10,7 +10,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { apiClient } from "../api/client";
-import type { AnalyticsDashboard, AnalyticsOverview, AnalyticsReport, AnalyticsWidget, KpiDefinition, KpiResult } from "../types/analytics";
+import type { AnalyticsDashboard, AnalyticsOverview, AnalyticsReport, KpiDefinition, KpiResult } from "../types/analytics";
 
 type Tab = "overview" | "dashboards" | "reports" | "kpis";
 
