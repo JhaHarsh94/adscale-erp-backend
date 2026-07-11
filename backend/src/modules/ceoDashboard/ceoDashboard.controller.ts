@@ -159,24 +159,25 @@ export const ceoCreateTicket = asyncHandler(async (req, res) => {
   return successResponse(res, 201, "Ticket created", ticket);
 });
 
-/* ─── Create SUPER_ADMIN ─── */
+/* ─── Create Admin User (CEO or SUPER_ADMIN) ─── */
 export const ceoCreateSuperAdmin = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role: targetRole } = req.body;
   if (!name || !email || !password) throw new AppError("name, email, and password are required", 400);
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) throw new AppError("Email already in use", 409);
 
-  const superAdminRole = await prisma.role.findFirst({ where: { name: "SUPER_ADMIN" } });
-  if (!superAdminRole) throw new AppError("SUPER_ADMIN role not found. Run seed first.", 500);
+  const roleName = targetRole === "CEO" ? "CEO" : "SUPER_ADMIN";
+  const adminRole = await prisma.role.findFirst({ where: { name: roleName } });
+  if (!adminRole) throw new AppError(`${roleName} role not found. Run seed first.`, 500);
 
   const hashed = await bcrypt.hash(password, 12);
   const user = await prisma.user.create({
-    data: { name, email, password: hashed, roleId: superAdminRole.id },
+    data: { name, email, password: hashed, roleId: adminRole.id },
     select: { id: true, name: true, email: true, role: { select: { name: true } }, createdAt: true },
   });
 
-  return successResponse(res, 201, "Super Admin created", user);
+  return successResponse(res, 201, `${roleName} created`, user);
 });
 
 /* ─── CEO Quick Stats — all modules ─── */

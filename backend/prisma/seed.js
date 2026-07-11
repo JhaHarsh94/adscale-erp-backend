@@ -5,6 +5,10 @@ const prisma = new PrismaClient();
 async function main() {
   const roles = [
     {
+      name: "CEO",
+      description: "Chief Executive Officer — complete access and control over the entire system",
+    },
+    {
       name: "SUPER_ADMIN",
       description: "Full system access with complete control",
     },
@@ -104,6 +108,11 @@ async function main() {
     "PROJECTS",
     "TICKETS",
     "RECRUITMENT",
+    "ANALYTICS",
+    "SEO",
+    "SOCIAL_MEDIA",
+    "GOOGLE_ADS",
+    "META_ADS",
   ];
   const standardActions = ["VIEW", "CREATE", "UPDATE", "DELETE"];
   const permissions = permissionModules.flatMap((module) =>
@@ -130,6 +139,7 @@ async function main() {
   );
 
   const rolePermissionRules = {
+    CEO: () => true,
     SUPER_ADMIN: () => true,
     DIRECTOR: () => true,
     OPERATIONS_MANAGER: (permission) =>

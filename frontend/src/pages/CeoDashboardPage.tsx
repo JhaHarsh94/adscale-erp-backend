@@ -35,7 +35,7 @@ export default function CeoDashboardPage() {
   const [stats, setStats] = useState<ModuleStats | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
-  const [saForm, setSaForm] = useState({ name: "", email: "", password: "Admin@123" });
+  const [saForm, setSaForm] = useState({ name: "", email: "", password: "Admin@123", role: "SUPER_ADMIN" });
 
   const msg = (s: string) => { setMessage(s); setTimeout(() => setMessage(""), 4000); };
 
@@ -51,9 +51,9 @@ export default function CeoDashboardPage() {
     setBusy(true);
     try {
       await apiClient.post("/ceo/create-super-admin", saForm);
-      msg(`Super Admin "${saForm.name}" created`);
-      setSaForm({ name: "", email: "", password: "Admin@123" });
-    } catch (e: any) { msg(e?.response?.data?.message || "Could not create Super Admin"); }
+      msg(`${saForm.role} "${saForm.name}" created`);
+      setSaForm({ name: "", email: "", password: "Admin@123", role: "SUPER_ADMIN" });
+    } catch (e: any) { msg(e?.response?.data?.message || "Could not create admin"); }
     finally { setBusy(false); }
   }
 
@@ -131,20 +131,24 @@ export default function CeoDashboardPage() {
         </section>
       )}
 
-      {/* Create Another Super Admin */}
+      {/* Create Admin User (CEO or SUPER_ADMIN) */}
       <section className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-6">
         <div className="flex items-center gap-2">
           <UserPlus className="text-amber-700" />
-          <h2 className="text-lg font-black text-amber-900">Grant Super Admin Access</h2>
+          <h2 className="text-lg font-black text-amber-900">Create Admin User</h2>
         </div>
-        <p className="mt-1 text-sm font-semibold text-amber-700">Create another SUPER_ADMIN with full system control.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-4">
+        <p className="mt-1 text-sm font-semibold text-amber-700">Grant CEO or SUPER_ADMIN access to a new user.</p>
+        <div className="mt-4 grid gap-3 md:grid-cols-5">
           <input className="w-full rounded-xl border border-amber-300 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-amber-500" value={saForm.name} onChange={e => setSaForm({ ...saForm, name: e.target.value })} placeholder="Full name" />
           <input className="w-full rounded-xl border border-amber-300 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-amber-500" value={saForm.email} onChange={e => setSaForm({ ...saForm, email: e.target.value })} placeholder="Email" />
           <input className="w-full rounded-xl border border-amber-300 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-amber-500" value={saForm.password} onChange={e => setSaForm({ ...saForm, password: e.target.value })} placeholder="Password" />
-          <button disabled={busy} onClick={createSuperAdmin} className="flex items-center justify-center gap-2 rounded-xl bg-amber-700 px-4 py-3 text-sm font-black text-white hover:bg-amber-800"><Crown size={17} /> Create Super Admin</button>
+          <select className="w-full rounded-xl border border-amber-300 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-amber-500" value={saForm.role} onChange={e => setSaForm({ ...saForm, role: e.target.value })}>
+            <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+            <option value="CEO">CEO</option>
+          </select>
+          <button disabled={busy} onClick={createSuperAdmin} className="flex items-center justify-center gap-2 rounded-xl bg-amber-700 px-4 py-3 text-sm font-black text-white hover:bg-amber-800"><Crown size={17} /> Create</button>
         </div>
-        <p className="mt-3 text-xs font-semibold text-amber-600">The new SUPER_ADMIN can log in immediately and access every module.</p>
+        <p className="mt-3 text-xs font-semibold text-amber-600">The new admin can log in immediately with full system access.</p>
       </section>
     </div>
   );
