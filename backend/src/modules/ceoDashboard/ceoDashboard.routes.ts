@@ -13,7 +13,7 @@ import {
 
 const router = Router();
 
-const ceoRoles = ["CEO"];
+const ceoRoles = ["CEO", "SUPER_ADMIN"];
 
 router.use(protect);
 router.use(allowRoles(...ceoRoles));
