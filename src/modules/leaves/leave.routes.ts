@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   applyLeave,
@@ -16,8 +16,8 @@ import {
 
 const router = Router();
 
-const leaveAdminRoles = ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
-const approvalRoles = ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER", "TEAM_LEAD"];
+const leaveAdminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+const approvalRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER", "TEAM_LEAD"];
 
 /* Dashboard */
 router.get(
@@ -67,7 +67,7 @@ router.put(
 router.put(
   "/requests/:id/hr-approval",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"),
+  allowRoles("CEO", "DIRECTOR", "HR"),
   hrApproveLeave
 );
 

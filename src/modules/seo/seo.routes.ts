@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { protect, allowRoles } from "../../middlewares/auth.middleware";
 import {
   createAudit,
@@ -24,7 +24,7 @@ import {
 
 const router = Router();
 
-const seoRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"];
+const seoRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"];
 
 router.use(protect);
 router.use(allowRoles(...seoRoles));

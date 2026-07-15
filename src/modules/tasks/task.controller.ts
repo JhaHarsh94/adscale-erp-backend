@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+﻿import { randomBytes } from "crypto";
 import { TaskPriority, TaskRecurrenceType, TaskStatus, type Prisma } from "@prisma/client";
 import { Response } from "express";
 import prisma from "../../config/prisma";
@@ -40,7 +40,7 @@ async function task(id: string) {
 /* Dashboard */
 export const dashboard = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.TaskWhereInput = isAgent ? {} : { assignedTo: { user: { id: user?.id } } };
   const [total, backlog, todo, inProgress, inReview, done, cancelled] = await Promise.all([
     prisma.task.count({ where }),
@@ -57,7 +57,7 @@ export const dashboard = asyncHandler(async (req, res) => {
 /* Kanban - grouped by status */
 export const kanban = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.TaskWhereInput = {};
   if (!isAgent && user) where.assignedTo = { user: { id: user.id } };
   if (req.query.projectId) where.projectId = String(req.query.projectId);
@@ -71,7 +71,7 @@ export const kanban = asyncHandler(async (req, res) => {
 /* List */
 export const list = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.TaskWhereInput = {};
   if (!isAgent && user) where.assignedTo = { user: { id: user.id } };
   if (req.query.status) where.status = enumValue(TaskStatus, req.query.status, TaskStatus.TODO);

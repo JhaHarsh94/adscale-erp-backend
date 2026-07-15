@@ -1,4 +1,4 @@
-import request from "supertest";
+﻿import request from "supertest";
 import app from "../server";
 
 jest.mock("../config/prisma", () => ({
@@ -86,7 +86,7 @@ const mockPrisma = prisma as any;
 const getAuthHeader = () => {
   const jwt = require("jsonwebtoken");
   const token = jwt.sign(
-    { userId: "user1", email: "admin@test.com", role: "SUPER_ADMIN" },
+    { userId: "user1", email: "admin@test.com", role: "CEO" },
     process.env.JWT_SECRET || "test-secret",
     { expiresIn: "1h" }
   );
@@ -101,7 +101,7 @@ beforeEach(() => {
     name: "Admin",
     email: "admin@test.com",
     status: "ACTIVE",
-    role: { name: "SUPER_ADMIN" },
+    role: { name: "CEO" },
   });
   mockPrisma.$transaction.mockImplementation((fn: any) => fn({
     user: { create: jest.fn(), update: jest.fn(), delete: jest.fn() },
@@ -177,7 +177,7 @@ describe("POST /api/employees", () => {
 
   it("returns 400 for invalid employment status", async () => {
     mockPrisma.user.findUnique
-      .mockResolvedValueOnce({ id: "user1", name: "Admin", email: "admin@test.com", status: "ACTIVE", role: { name: "SUPER_ADMIN" } })
+      .mockResolvedValueOnce({ id: "user1", name: "Admin", email: "admin@test.com", status: "ACTIVE", role: { name: "CEO" } })
       .mockResolvedValueOnce(null);
     mockPrisma.employee.findUnique.mockResolvedValue(null);
     mockPrisma.role.findUnique.mockResolvedValue({ id: "role1", name: "EMPLOYEE" });
@@ -197,7 +197,7 @@ describe("POST /api/employees", () => {
 
   it("returns 409 when email already exists", async () => {
     mockPrisma.user.findUnique
-      .mockResolvedValueOnce({ id: "user1", name: "Admin", email: "admin@test.com", status: "ACTIVE", role: { name: "SUPER_ADMIN" } })
+      .mockResolvedValueOnce({ id: "user1", name: "Admin", email: "admin@test.com", status: "ACTIVE", role: { name: "CEO" } })
       .mockResolvedValueOnce({ id: "existing" });
     const res = await request(app)
       .post("/api/employees")

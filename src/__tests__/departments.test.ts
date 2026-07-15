@@ -1,4 +1,4 @@
-import request from "supertest";
+﻿import request from "supertest";
 import app from "../server";
 
 jest.mock("../config/prisma", () => ({
@@ -20,7 +20,7 @@ jest.mock("../config/prisma", () => ({
 import prisma from "../config/prisma";
 const mockPrisma = prisma as any;
 
-const getAuthHeader = (role = "SUPER_ADMIN") => {
+const getAuthHeader = (role = "CEO") => {
   const jwt = require("jsonwebtoken");
   const token = jwt.sign(
     { userId: "user1", email: "admin@test.com", role },
@@ -38,7 +38,7 @@ beforeEach(() => {
     name: "Admin",
     email: "admin@test.com",
     status: "ACTIVE",
-    role: { name: "SUPER_ADMIN" },
+    role: { name: "CEO" },
   });
 });
 

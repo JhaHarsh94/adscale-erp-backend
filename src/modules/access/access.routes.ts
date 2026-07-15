@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   createPermission,
@@ -15,19 +15,19 @@ import {
 export const roleRoutes = Router();
 export const permissionRoutes = Router();
 
-roleRoutes.use(protect, allowRoles("SUPER_ADMIN", "DIRECTOR"));
+roleRoutes.use(protect, allowRoles("CEO", "DIRECTOR"));
 roleRoutes.get("/", getRoles);
-roleRoutes.post("/", allowRoles("SUPER_ADMIN"), createRole);
-roleRoutes.put("/:id", allowRoles("SUPER_ADMIN"), updateRole);
-roleRoutes.delete("/:id", allowRoles("SUPER_ADMIN"), deleteRole);
+roleRoutes.post("/", allowRoles("CEO"), createRole);
+roleRoutes.put("/:id", allowRoles("CEO"), updateRole);
+roleRoutes.delete("/:id", allowRoles("CEO"), deleteRole);
 roleRoutes.put(
   "/:id/permissions",
-  allowRoles("SUPER_ADMIN"),
+  allowRoles("CEO"),
   setRolePermissions
 );
 
-permissionRoutes.use(protect, allowRoles("SUPER_ADMIN", "DIRECTOR"));
+permissionRoutes.use(protect, allowRoles("CEO", "DIRECTOR"));
 permissionRoutes.get("/", getPermissions);
-permissionRoutes.post("/", allowRoles("SUPER_ADMIN"), createPermission);
-permissionRoutes.put("/:id", allowRoles("SUPER_ADMIN"), updatePermission);
-permissionRoutes.delete("/:id", allowRoles("SUPER_ADMIN"), deletePermission);
+permissionRoutes.post("/", allowRoles("CEO"), createPermission);
+permissionRoutes.put("/:id", allowRoles("CEO"), updatePermission);
+permissionRoutes.delete("/:id", allowRoles("CEO"), deletePermission);

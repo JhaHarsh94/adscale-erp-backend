@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { protect, allowRoles } from "../../middlewares/auth.middleware";
 import {
   createAccount,
@@ -21,7 +21,7 @@ import {
 
 const router = Router();
 
-const socialMediaRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"];
+const socialMediaRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"];
 
 router.use(protect);
 router.use(allowRoles(...socialMediaRoles));

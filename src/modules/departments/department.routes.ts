@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   createDepartment,
@@ -16,17 +16,17 @@ router.get("/:id", protect, getDepartmentById);
 router.post(
   "/",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR"),
+  allowRoles("CEO", "DIRECTOR"),
   createDepartment
 );
 
 router.put(
   "/:id",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR"),
+  allowRoles("CEO", "DIRECTOR"),
   updateDepartment
 );
 
-router.delete("/:id", protect, allowRoles("SUPER_ADMIN"), deleteDepartment);
+router.delete("/:id", protect, allowRoles("CEO"), deleteDepartment);
 
 export default router;

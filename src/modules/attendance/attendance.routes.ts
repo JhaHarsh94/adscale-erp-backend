@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from "express";
+﻿import { NextFunction, Request, Response, Router } from "express";
 import { AttendanceMethod } from "@prisma/client";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
@@ -24,7 +24,7 @@ import {
 
 const router = Router();
 
-const attendanceAdminRoles = ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+const attendanceAdminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
 
 function forceMethod(method: AttendanceMethod) {
   return (req: Request, res: Response, next: NextFunction) => {

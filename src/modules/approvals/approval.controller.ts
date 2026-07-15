@@ -1,4 +1,4 @@
-import { ApprovalStatus, ApprovalStepStatus, ApprovalType, type Prisma } from "@prisma/client";
+﻿import { ApprovalStatus, ApprovalStepStatus, ApprovalType, type Prisma } from "@prisma/client";
 import { Response } from "express";
 import prisma from "../../config/prisma";
 import { AuthRequest } from "../../middlewares/auth.middleware";
@@ -42,7 +42,7 @@ async function approval(id: string) {
 export const dashboard = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
   const employee = await prisma.employee.findUnique({ where: { userId: user?.id } });
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
 
   const [total, pending, inReview, approved, rejected, myRequests, pendingMyReview] = await Promise.all([
     prisma.approval.count(),
@@ -61,7 +61,7 @@ export const dashboard = asyncHandler(async (req, res) => {
 export const list = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
   const employee = await prisma.employee.findUnique({ where: { userId: user?.id } });
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.ApprovalWhereInput = {};
 
   if (!isAgent && user) where.createdById = user.id;

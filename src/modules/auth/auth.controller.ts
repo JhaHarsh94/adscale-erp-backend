@@ -1,4 +1,4 @@
-import { Response } from "express";
+﻿import { Response } from "express";
 import prisma from "../../config/prisma";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { AppError } from "../../utils/AppError";
@@ -439,7 +439,7 @@ export const adminRegister = asyncHandler(async (req: AuthRequest, res: Response
 });
 
 const setupRoles = [
-  { name: "SUPER_ADMIN", description: "Full system access" },
+  { name: "CEO", description: "Full system access" },
   { name: "DIRECTOR", description: "Company dashboard, reports, finance" },
   { name: "OPERATIONS_MANAGER", description: "Projects, teams, tickets, approvals" },
   { name: "HR", description: "Employees, attendance, leave, recruitment" },
@@ -465,7 +465,7 @@ const setupPermissions = (() => {
 })();
 
 const rolePermissionRules: Record<string, (p: { name: string; module: string; action: string }) => boolean> = {
-  SUPER_ADMIN: () => true,
+  CEO: () => true,
   DIRECTOR: () => true,
   OPERATIONS_MANAGER: (p) => ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES", "CRM", "COMMERCIAL", "PROJECTS", "TICKETS"].includes(p.module),
   HR: (p) => ["DEPARTMENTS", "TEAMS", "DESIGNATIONS", "EMPLOYEES", "ATTENDANCE", "LEAVES"].includes(p.module),
@@ -508,7 +508,7 @@ export const setup = asyncHandler(async (req, res: Response) => {
     }
   }
 
-  const adminRole = savedRoles.find((r) => r.name === "SUPER_ADMIN")!;
+  const adminRole = savedRoles.find((r) => r.name === "CEO")!;
   const hashed = await hashPassword(password);
   const user = await prisma.user.create({
     data: { name, email: email.toLowerCase().trim(), password: hashed, roleId: adminRole.id },

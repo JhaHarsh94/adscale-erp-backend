@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { protect, allowRoles } from "../../middlewares/auth.middleware";
 import { clientProtect } from "../../middlewares/clientAuth.middleware";
 import {
@@ -50,7 +50,7 @@ router.get("/notifications", clientProtect, getClientNotifications);
 router.put("/notifications/:id/read", clientProtect, markNotificationRead);
 router.put("/notifications/read-all", clientProtect, markAllNotificationsRead);
 
-const adminRoles = ["SUPER_ADMIN", "DIRECTOR", "SALES_MANAGER", "OPERATIONS_MANAGER"];
+const adminRoles = ["CEO", "DIRECTOR", "SALES_MANAGER", "OPERATIONS_MANAGER"];
 router.post("/admin/create", protect, allowRoles(...adminRoles), adminCreateClientUser);
 router.get("/admin/users", protect, allowRoles(...adminRoles), adminListClientUsers);
 

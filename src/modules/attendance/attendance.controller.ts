@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+﻿import { Request, Response } from "express";
 import crypto from "crypto";
 import {
   AttendanceMethod,
@@ -46,7 +46,7 @@ async function resolveEmployee(req: Request) {
       throw new AppError("User not found", 401);
     }
 
-    const adminRoles = ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+    const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
 
     if (!adminRoles.includes(user.role.name)) {
       throw new AppError("Not allowed to act on behalf of another employee", 403);

@@ -1,4 +1,4 @@
-import { Response } from "express";
+﻿import { Response } from "express";
 import prisma from "../../config/prisma";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { AppError } from "../../utils/AppError";
@@ -95,8 +95,8 @@ export const deleteRole = asyncHandler(async (req, res: Response) => {
     throw new AppError("Role not found", 404);
   }
 
-  if (role.name === "SUPER_ADMIN") {
-    throw new AppError("The SUPER_ADMIN role cannot be deleted", 400);
+  if (role.name === "CEO") {
+    throw new AppError("The CEO role cannot be deleted", 400);
   }
 
   if (role._count.users > 0) {

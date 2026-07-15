@@ -1,4 +1,4 @@
-import type { Prisma } from "@prisma/client";
+﻿import type { Prisma } from "@prisma/client";
 import { Response } from "express";
 import prisma from "../../config/prisma";
 import { AuthRequest } from "../../middlewares/auth.middleware";
@@ -29,7 +29,7 @@ async function worklog(id: string) {
 /* Dashboard */
 export const dashboard = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const employee = await prisma.employee.findUnique({ where: { userId: user?.id } });
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -59,7 +59,7 @@ export const dashboard = asyncHandler(async (req, res) => {
 /* List */
 export const list = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.WorkLogWhereInput = {};
 
   if (!isAgent && user) {
@@ -188,7 +188,7 @@ export const approve = asyncHandler(async (req, res) => {
 /* Report grouped by date */
 export const report = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.WorkLogWhereInput = {};
 
   if (!isAgent && user) {

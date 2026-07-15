@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+﻿import { randomBytes } from "crypto";
 import { TicketPriority, TicketSource, TicketStatus, type Prisma } from "@prisma/client";
 import { Response } from "express";
 import prisma from "../../config/prisma";
@@ -69,7 +69,7 @@ export const categoriesDelete = asyncHandler(async (req, res) => {
 /* Dashboard */
 export const ticketsDashboard = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.TicketWhereInput = isAgent ? {} : { assignedTo: { user: { id: user?.id } } };
   const [total, open, assigned, inProgress, waitingOnClient, resolved, closed, escalated] = await Promise.all([
     prisma.ticket.count({ where }),
@@ -87,7 +87,7 @@ export const ticketsDashboard = asyncHandler(async (req, res) => {
 /* CRUD */
 export const ticketsList = asyncHandler(async (req, res) => {
   const user = (req as AuthRequest).user;
-  const isAgent = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
+  const isAgent = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"].includes(user?.role || "");
   const where: Prisma.TicketWhereInput = {};
   if (!isAgent && user) where.assignedTo = { user: { id: user.id } };
   if (req.query.status) where.status = enumValue(TicketStatus, req.query.status, TicketStatus.OPEN);

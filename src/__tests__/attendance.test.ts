@@ -1,4 +1,4 @@
-import request from "supertest";
+﻿import request from "supertest";
 import app from "../server";
 
 jest.mock("../config/prisma", () => ({
@@ -62,7 +62,7 @@ const mockPrisma = prisma as any;
 const getAuthHeader = () => {
   const jwt = require("jsonwebtoken");
   const token = jwt.sign(
-    { userId: "user1", email: "admin@test.com", role: "SUPER_ADMIN" },
+    { userId: "user1", email: "admin@test.com", role: "CEO" },
     process.env.JWT_SECRET || "test-secret",
     { expiresIn: "1h" }
   );
@@ -77,7 +77,7 @@ beforeEach(() => {
     name: "Admin",
     email: "admin@test.com",
     status: "ACTIVE",
-    role: { name: "SUPER_ADMIN" },
+    role: { name: "CEO" },
   });
   mockPrisma.$transaction.mockImplementation((fn: any) =>
     fn({
@@ -116,7 +116,7 @@ describe("POST /api/attendance/check-in", () => {
     mockPrisma.employee.findUnique.mockResolvedValue({
       id: "emp1",
       userId: "user1",
-      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "SUPER_ADMIN" } },
+      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "CEO" } },
     });
     mockPrisma.attendance.findUnique.mockResolvedValue({
       id: "att1",
@@ -133,7 +133,7 @@ describe("POST /api/attendance/check-in", () => {
     mockPrisma.employee.findUnique.mockResolvedValue({
       id: "emp1",
       userId: "user1",
-      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "SUPER_ADMIN" } },
+      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "CEO" } },
     });
     const res = await request(app)
       .post("/api/attendance/check-in")
@@ -148,7 +148,7 @@ describe("POST /api/attendance/check-out", () => {
     mockPrisma.employee.findUnique.mockResolvedValue({
       id: "emp1",
       userId: "user1",
-      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "SUPER_ADMIN" } },
+      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "CEO" } },
     });
     mockPrisma.attendance.findUnique.mockResolvedValue(null);
     const res = await request(app)
@@ -164,7 +164,7 @@ describe("POST /api/attendance/break/start", () => {
     mockPrisma.employee.findUnique.mockResolvedValue({
       id: "emp1",
       userId: "user1",
-      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "SUPER_ADMIN" } },
+      user: { id: "user1", name: "Admin", email: "admin@test.com", role: { name: "CEO" } },
     });
     mockPrisma.attendance.findUnique.mockResolvedValue(null);
     const res = await request(app)

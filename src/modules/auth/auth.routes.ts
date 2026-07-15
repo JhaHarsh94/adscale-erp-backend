@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import {
   adminRegister,
   forgotPassword,
@@ -25,8 +25,8 @@ router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOtp);
 router.post("/reset-password", resetPassword);
 
-router.get("/users", protect, allowRoles("SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "HR"), getUsers);
-router.post("/admin-register", protect, allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"), adminRegister);
+router.get("/users", protect, allowRoles("CEO", "DIRECTOR", "OPERATIONS_MANAGER", "HR"), getUsers);
+router.post("/admin-register", protect, allowRoles("CEO", "DIRECTOR", "HR"), adminRegister);
 
 router.get("/setup-status", setupStatus);
 router.post("/setup", setup);

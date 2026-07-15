@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   completeFollowUp,
@@ -33,7 +33,7 @@ import {
 const router = Router();
 
 const crmReadRoles = [
-  "SUPER_ADMIN",
+  "CEO",
   "DIRECTOR",
   "OPERATIONS_MANAGER",
   "SALES_MANAGER",
@@ -41,13 +41,13 @@ const crmReadRoles = [
 ];
 
 const crmWriteRoles = [
-  "SUPER_ADMIN",
+  "CEO",
   "DIRECTOR",
   "OPERATIONS_MANAGER",
   "SALES_MANAGER",
 ];
 
-const crmDeleteRoles = ["SUPER_ADMIN", "DIRECTOR", "SALES_MANAGER"];
+const crmDeleteRoles = ["CEO", "DIRECTOR", "SALES_MANAGER"];
 
 router.get("/dashboard", protect, allowRoles(...crmReadRoles), getCrmDashboard);
 

@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { protect, allowRoles } from "../../middlewares/auth.middleware";
 import {
   createAccount, createAd, createAdSet, createCampaign, createReport,
@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-const roles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "TEAM_LEAD", "EMPLOYEE"];
+const roles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "TEAM_LEAD", "EMPLOYEE"];
 
 router.use(protect);
 router.use(allowRoles(...roles));

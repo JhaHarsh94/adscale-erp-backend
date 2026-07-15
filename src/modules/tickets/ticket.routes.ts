@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   categoriesCreate,
@@ -19,9 +19,9 @@ import {
 
 const router = Router();
 
-const ticketReadRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
-const ticketWriteRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER"];
-const ticketAdminRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER"];
+const ticketReadRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
+const ticketWriteRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER"];
+const ticketAdminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"];
 
 /* Categories */
 router.get("/categories", protect, allowRoles(...ticketReadRoles), categoriesList);

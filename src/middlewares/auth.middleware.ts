@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+﻿import { Request, Response, NextFunction } from "express";
 import prisma from "../config/prisma";
 import { verifyToken } from "../utils/jwt";
 import { AppError } from "../utils/AppError";
@@ -88,7 +88,7 @@ export const allowPermissions = (...permissions: string[]) => {
       return next(new AppError("User not authenticated", 401));
     }
 
-    if (req.user.role === "SUPER_ADMIN") {
+    if (req.user.role === "CEO") {
       return next();
     }
 

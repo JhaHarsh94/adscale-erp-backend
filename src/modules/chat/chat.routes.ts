@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   createDirectRoom, createGroupRoom, getRoom, getUnreadCount, listChatUsers, listMessages, listRooms, markRead, sendMessage,
@@ -6,7 +6,7 @@ import {
 
 const router = Router();
 
-const readRoles = ["SUPER_ADMIN", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
+const readRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
 
 router.get("/rooms", protect, allowRoles(...readRoles), listRooms);
 router.get("/rooms/:id", protect, allowRoles(...readRoles), getRoom);

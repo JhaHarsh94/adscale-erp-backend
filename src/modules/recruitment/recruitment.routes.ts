@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   dashboard,
@@ -11,8 +11,8 @@ import {
 
 const router = Router();
 
-const adminRoles = ["SUPER_ADMIN", "DIRECTOR", "HR"];
-const readRoles = ["SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+const adminRoles = ["CEO", "DIRECTOR", "HR"];
+const readRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
 
 router.get("/dashboard", protect, allowRoles(...readRoles), dashboard);
 

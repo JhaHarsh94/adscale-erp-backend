@@ -3,9 +3,9 @@ import { AuthRequest } from "../../middlewares/auth.middleware";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { successResponse } from "../../utils/response";
 
-export const superAdminDashboard = asyncHandler(
+export const ceoDashboard = asyncHandler(
   async (req: AuthRequest, res: Response) => {
-    return successResponse(res, 200, "Super Admin dashboard access granted", {
+    return successResponse(res, 200, "CEO dashboard access granted", {
       user: req.user,
       access: [
         "Full System Access",

@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   addEmployeeDocument,
@@ -24,13 +24,13 @@ import {
 const router = Router();
 
 const employeeWriteRoles = [
-  "SUPER_ADMIN",
+  "CEO",
   "DIRECTOR",
   "HR",
   "OPERATIONS_MANAGER",
 ];
 
-const employeeDeleteRoles = ["SUPER_ADMIN", "DIRECTOR", "HR"];
+const employeeDeleteRoles = ["CEO", "DIRECTOR", "HR"];
 
 router.get("/", protect, getEmployees);
 
@@ -81,21 +81,21 @@ router.delete(
 router.get(
   "/:id/salary",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"),
+  allowRoles("CEO", "DIRECTOR", "HR"),
   getEmployeeSalaryDetails
 );
 
 router.post(
   "/:id/salary",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"),
+  allowRoles("CEO", "DIRECTOR", "HR"),
   addEmployeeSalaryDetail
 );
 
 router.put(
   "/:id/salary/:salaryId",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"),
+  allowRoles("CEO", "DIRECTOR", "HR"),
   updateEmployeeSalaryDetail
 );
 

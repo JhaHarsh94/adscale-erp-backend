@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
   createReportingHierarchy,
@@ -16,21 +16,21 @@ router.get("/:id", protect, getReportingHierarchyById);
 router.post(
   "/",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"),
+  allowRoles("CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"),
   createReportingHierarchy
 );
 
 router.put(
   "/:id",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR", "OPERATIONS_MANAGER"),
+  allowRoles("CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"),
   updateReportingHierarchy
 );
 
 router.delete(
   "/:id",
   protect,
-  allowRoles("SUPER_ADMIN", "DIRECTOR", "HR"),
+  allowRoles("CEO", "DIRECTOR", "HR"),
   deleteReportingHierarchy
 );
 
