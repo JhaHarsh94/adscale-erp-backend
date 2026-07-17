@@ -727,7 +727,29 @@ export const getTodayAttendance = asyncHandler(async (req, res: Response) => {
 });
 
 export const getAttendanceReport = asyncHandler(async (req, res: Response) => {
-  const { employeeId, from, to, status, method } = req.query;
+  const { employeeId: queryEmployeeId, from, to, status, method } = req.query;
+
+  const userId = getRequestUserId(req);
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { role: true, employee: true },
+  });
+
+  const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+  const isAdmin = user && adminRoles.includes(user.role.name);
+
+  let targetEmployeeId: string | undefined;
+
+  if (isAdmin && queryEmployeeId) {
+    targetEmployeeId = String(queryEmployeeId);
+  } else if (isAdmin) {
+    targetEmployeeId = undefined;
+  } else if (user?.employee) {
+    targetEmployeeId = user.employee.id;
+  } else {
+    throw new AppError("Employee profile not found for logged in user", 404);
+  }
 
   const fromDate = from ? startOfDay(String(from)) : startOfDay();
   const toDate = to ? startOfDay(String(to)) : startOfDay();
@@ -739,7 +761,7 @@ export const getAttendanceReport = asyncHandler(async (req, res: Response) => {
         gte: fromDate,
         lte: toDate,
       },
-      employeeId: employeeId ? String(employeeId) : undefined,
+      employeeId: targetEmployeeId,
       status: status ? (status as AttendanceStatus) : undefined,
       OR: method
         ? [

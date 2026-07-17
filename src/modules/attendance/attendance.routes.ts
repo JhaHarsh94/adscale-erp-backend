@@ -105,7 +105,6 @@ router.get("/today", protect, getTodayAttendance);
 router.get(
   "/report",
   protect,
-  allowRoles(...attendanceAdminRoles),
   getAttendanceReport
 );
 
