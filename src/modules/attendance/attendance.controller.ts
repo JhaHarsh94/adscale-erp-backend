@@ -744,10 +744,11 @@ export const getAttendanceReport = asyncHandler(async (req, res: Response) => {
 
   let targetEmployeeId: string | undefined;
 
-  if (isAdmin && queryEmployeeId) {
-    targetEmployeeId = String(queryEmployeeId);
-  } else if (isAdmin) {
-    targetEmployeeId = undefined;
+  if (isAdmin) {
+    targetEmployeeId =
+      queryEmployeeId && String(queryEmployeeId) !== user?.employee?.id
+        ? String(queryEmployeeId)
+        : undefined;
   } else if (user?.employee) {
     targetEmployeeId = user.employee.id;
   } else {
