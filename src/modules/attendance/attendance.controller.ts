@@ -49,7 +49,10 @@ async function resolveEmployee(req: Request) {
     const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
 
     if (!adminRoles.includes(user.role.name)) {
-      throw new AppError("Not allowed to act on behalf of another employee", 403);
+      const ownEmployee = await prisma.employee.findUnique({ where: { userId } });
+      if (!ownEmployee || ownEmployee.id !== employeeId) {
+        throw new AppError("Not allowed to act on behalf of another employee", 403);
+      }
     }
 
     const employee = await prisma.employee.findUnique({
