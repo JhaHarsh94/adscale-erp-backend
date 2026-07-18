@@ -46,7 +46,7 @@ async function resolveEmployee(req: Request) {
       throw new AppError("User not found", 401);
     }
 
-    const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+    const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
 
     if (!adminRoles.includes(user.role.name)) {
       const ownEmployee = await prisma.employee.findUnique({ where: { userId } });
@@ -739,7 +739,7 @@ export const getAttendanceReport = asyncHandler(async (req, res: Response) => {
     include: { role: true, employee: true },
   });
 
-  const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+  const adminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
   const isAdmin = user && adminRoles.includes(user.role.name);
 
   let targetEmployeeId: string | undefined;

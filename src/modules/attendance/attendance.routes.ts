@@ -24,7 +24,7 @@ import {
 
 const router = Router();
 
-const attendanceAdminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER"];
+const attendanceAdminRoles = ["CEO", "DIRECTOR", "HR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
 
 function forceMethod(method: AttendanceMethod) {
   return (req: Request, res: Response, next: NextFunction) => {
