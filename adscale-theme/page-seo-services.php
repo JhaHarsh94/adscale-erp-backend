@@ -1,0 +1,1044 @@
+<?php
+/**
+ * AdScale Media — SEO Services Landing Page
+ * Template Name: SEO Services
+ */
+get_header();
+?>
+<style>
+/* ══════════════════════════════════════
+   SEO SERVICES — PAGE STYLES
+   ══════════════════════════════════════ */
+
+body.page-template-page-seo-services { background:var(--bg-void); }
+body.page-template-page-seo-services #navbar,
+body.page-template-page-seo-services #mobile-menu,
+body.page-template-page-seo-services footer,
+body.page-template-page-seo-services .wa-float-lb,
+body.page-template-page-seo-services #scroll-top-lb,
+body.page-template-page-seo-services #progress-bar,
+body.page-template-page-seo-services #loader,
+body.page-template-page-seo-services .page-hero { display:none !important; }
+body.page-template-page-seo-services .page-hero,
+body.page-template-page-seo-services section { padding-top:0; }
+
+/* ── Minimal Header ── */
+.seo-header {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding:12px 5%; background:rgba(6,12,20,.6); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border-card);
+}
+.seo-header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+.seo-header-logo {
+  display:inline-flex; align-items:center; gap:.5rem; text-decoration:none;
+}
+.seo-header-logo-img {
+  height:32px; width:auto;
+  transition:filter .3s;
+}
+.seo-header-logo:hover .seo-header-logo-img {
+  filter:drop-shadow(0 0 6px rgba(10,102,194,0.5));
+}
+.seo-header-logo-text {
+  font-family:var(--font-display); font-size:1.15rem; letter-spacing:.08em; color:var(--white);
+}
+.seo-header-logo-text span { color:var(--blue); }
+.seo-header-actions { display:flex; gap:8px; align-items:center; }
+@media(max-width:640px){ .seo-header-actions .lb-hide-mobile { display:none; } }
+
+/* ── Hero ── */
+.seo-hero { position:relative; width:100%; min-height:100vh; display:flex; align-items:center; overflow:hidden; }
+.seo-hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(6,12,20,.92) 0%,rgba(6,12,20,.5) 50%,rgba(6,12,20,.8) 100%); }
+.seo-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0; will-change:transform; }
+.seo-orb-1 { width:600px; height:600px; background:radial-gradient(circle,rgba(10,102,194,.2),transparent 70%); top:-15%; right:-10%; animation:orbFloat 25s ease-in-out infinite; }
+.seo-orb-2 { width:500px; height:500px; background:radial-gradient(circle,rgba(0,200,150,.12),transparent 70%); bottom:-10%; left:-8%; animation:orbFloat 30s ease-in-out infinite reverse; }
+@keyframes orbFloat { 0%,100%{transform:translate(0,0) scale(1)} 25%{transform:translate(50px,-40px) scale(1.08)} 50%{transform:translate(-30px,30px) scale(.92)} 75%{transform:translate(40px,20px) scale(1.04)} }
+.seo-hero-content { position:relative; z-index:2; width:100%; max-width:1200px; margin:0 auto; padding:0 5%; }
+.seo-hero-layout { display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center; width:100%; max-width:1200px; margin:0 auto; padding:0 5%; }
+.seo-hero-text { position:relative; z-index:2; }
+.seo-hero-eyebrow { display:inline-flex; align-items:center; gap:.8rem; font-family:var(--font-mono); font-size:.72rem; color:var(--green); letter-spacing:.2em; text-transform:uppercase; margin-bottom:1.4rem; }
+.seo-hero-eyebrow::before { content:''; width:28px; height:1px; background:var(--green); }
+.seo-hero-headline { font-family:var(--font-display); font-size:clamp(3rem,7vw,6.5rem); line-height:.95; letter-spacing:.04em; color:var(--white); margin-bottom:1.2rem; }
+.seo-hero-headline .accent { background:linear-gradient(135deg,var(--blue),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.seo-hero-headline .accent-orange { background:linear-gradient(135deg,var(--orange),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.seo-hero-sub { font-size:1.05rem; color:var(--text-secondary); max-width:580px; line-height:1.75; margin-bottom:2rem; }
+.seo-hero-actions { display:flex; gap:1.1rem; flex-wrap:wrap; margin-bottom:1.6rem; }
+.seo-hero-highlights { display:flex; gap:2rem; flex-wrap:wrap; }
+.seo-hero-highlight { font-size:.8rem; color:var(--text-muted); display:flex; align-items:center; gap:.5rem; }
+.seo-hero-highlight::before { content:'\2713'; color:var(--green); font-weight:700; }
+.seo-hero-trust { font-family:var(--font-mono); font-size:.65rem; color:var(--text-faint); letter-spacing:.06em; margin-top:1.2rem; }
+.seo-hero-visual { position:relative; padding-top:2rem; }
+.seo-h-card { background:rgba(13,21,37,.7); border:1px solid rgba(10,102,194,.2); border-radius:18px; overflow:hidden; backdrop-filter:blur(24px); transform:perspective(1000px) rotateX(3deg) rotateY(-8deg); transition:transform .1s linear; box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 0 1px rgba(10,102,194,.1),0 0 60px rgba(10,102,194,.04); position:relative; z-index:2; }
+.seo-hc-dots { display:flex; gap:7px; padding:14px 18px 0; }
+.seo-hc-dots span { width:9px; height:9px; border-radius:50%; }
+.seo-hc-dots span:nth-child(1) { background:#e63a46; }
+.seo-hc-dots span:nth-child(2) { background:#f5a623; }
+.seo-hc-dots span:nth-child(3) { background:#25d366; }
+.seo-hc-body { padding:16px 22px 22px; }
+.seo-hc-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; }
+.seo-hc-label { font-family:var(--font-mono); font-size:.6rem; color:var(--text-muted); letter-spacing:.1em; text-transform:uppercase; }
+.seo-hc-value { font-family:var(--font-head); font-size:.8rem; font-weight:600; color:var(--white); }
+.seo-hc-divider { height:1px; background:linear-gradient(90deg,var(--blue),transparent); margin:10px 0; opacity:.3; }
+.seo-hc-metrics { display:flex; flex-direction:column; gap:6px; }
+.seo-hc-m-val { font-family:var(--font-mono); font-size:.55rem; color:var(--text-muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:2px; }
+.seo-hc-m-bar { height:4px; background:rgba(255,255,255,.06); border-radius:4px; overflow:hidden; }
+.seo-hc-m-bar div { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--blue),var(--green)); }
+.seo-h-float { position:absolute; display:flex; align-items:center; gap:8px; background:rgba(13,21,37,.85); border:1px solid rgba(10,102,194,.15); border-radius:10px; padding:10px 14px; backdrop-filter:blur(16px); box-shadow:0 8px 24px rgba(0,0,0,.3); animation:floatDrift 5s ease-in-out infinite; z-index:3; }
+.seo-h-float-1 { top:8%; left:-12%; animation-delay:0s; }
+.seo-h-float-2 { bottom:12%; right:-8%; animation-delay:-2.5s; }
+.seo-h-float-3 { top:55%; left:-18%; animation-delay:-1.2s; }
+.seo-hf-icon { font-size:1.1rem; }
+.seo-hf-val { font-family:var(--font-head); font-size:.75rem; font-weight:700; color:var(--white); line-height:1; }
+.seo-hf-label { font-family:var(--font-mono); font-size:.55rem; color:var(--text-muted); letter-spacing:.08em; text-transform:uppercase; margin-top:1px; }
+@keyframes floatDrift { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+/* ── Shared Sections ── */
+.seo-section { padding:100px 5%; }
+.seo-section-inner { max-width:1200px; margin:0 auto; }
+.seo-section-dark { background:var(--bg-deep); }
+.seo-section-darker { background:var(--bg-void); }
+
+/* ── Why Grid ── */
+.seo-why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:3.5rem; }
+.seo-why-card { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:32px 28px; transition:all .4s cubic-bezier(.22,1,.36,1); position:relative; overflow:hidden; }
+.seo-why-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--green)); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.seo-why-card:hover { border-color:var(--border-strong); transform:translateY(-5px); box-shadow:var(--shadow-blue); }
+.seo-why-card:hover::before { transform:scaleX(1); }
+.seo-why-icon { font-size:1.8rem; margin-bottom:14px; }
+.seo-why-title { font-family:var(--font-head); font-size:1rem; font-weight:800; color:var(--white); margin-bottom:8px; }
+.seo-why-desc { font-size:.82rem; color:var(--text-secondary); line-height:1.7; }
+
+/* ── Problems Grid ── */
+.seo-problems-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:3rem; }
+.seo-problem-card { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:24px 22px; transition:all .4s; position:relative; overflow:hidden; }
+.seo-problem-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--red),var(--orange)); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.seo-problem-card:hover { border-color:rgba(230,57,70,.2); transform:translateY(-4px); }
+.seo-problem-card:hover::before { transform:scaleX(1); }
+.seo-problem-icon { font-size:1.4rem; margin-bottom:10px; }
+.seo-problem-title { font-family:var(--font-head); font-size:.88rem; font-weight:800; color:var(--white); margin-bottom:5px; }
+.seo-problem-desc { font-size:.78rem; color:var(--text-muted); line-height:1.6; }
+
+/* ── Services Grid ── */
+.seo-services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; border:1.5px solid var(--border-card); border-radius:var(--radius-lg); overflow:hidden; margin-top:3rem; }
+.seo-service-card { background:var(--bg-card); padding:1.8rem 1.6rem; position:relative; overflow:hidden; transition:background .4s; }
+.seo-service-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--green)); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.seo-service-card:hover { background:var(--bg-card-alt); }
+.seo-service-card:hover::after { transform:scaleX(1); }
+.seo-sc-icon { font-family:var(--font-display); font-size:1.5rem; color:var(--blue); margin-bottom:6px; }
+.seo-sc-title { font-family:var(--font-head); font-size:.9rem; font-weight:800; color:var(--white); margin-bottom:5px; }
+.seo-sc-desc { font-size:.78rem; color:var(--text-muted); line-height:1.65; }
+.seo-sc-list { margin-top:8px; display:flex; flex-direction:column; gap:3px; }
+.seo-sc-list-item { font-size:.72rem; color:var(--text-faint); display:flex; align-items:center; gap:5px; }
+.seo-sc-list-item::before { content:'\2713'; color:var(--green); font-weight:700; font-size:.6rem; }
+
+/* ── Process Steps ── */
+.seo-process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:3.5rem; position:relative; }
+.seo-process-steps::before { content:''; position:absolute; top:28px; left:8%; right:8%; height:1px; background:linear-gradient(90deg,transparent,var(--blue),var(--green),transparent); }
+.seo-process-step { text-align:center; position:relative; z-index:1; }
+.seo-ps-num { width:56px; height:56px; border-radius:50%; background:var(--bg-card); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.72rem; color:var(--blue); margin:0 auto 1rem; transition:all .3s; }
+.seo-process-step:hover .seo-ps-num { border-color:var(--blue); background:var(--blue-subtle); box-shadow:0 0 24px var(--blue-glow); }
+.seo-ps-title { font-family:var(--font-head); font-size:.85rem; font-weight:800; color:var(--white); margin-bottom:.4rem; }
+.seo-ps-desc { font-size:.75rem; color:var(--text-muted); line-height:1.6; }
+
+/* ── Checklist Grid ── */
+.seo-checklist-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:3rem; }
+.seo-checklist-item { display:flex; align-items:center; gap:10px; padding:14px 16px; background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-sm); transition:all .3s; font-size:.82rem; color:var(--text-secondary); }
+.seo-checklist-item:hover { border-color:var(--border-strong); transform:translateX(3px); }
+.seo-checklist-icon { color:var(--green); font-size:.9rem; flex-shrink:0; }
+
+/* ── Ethical Grid ── */
+.seo-ethical-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:3rem; }
+.seo-ethical-card { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:28px 24px; transition:all .3s; }
+.seo-ethical-card:hover { border-color:var(--border-strong); transform:translateY(-3px); }
+.seo-ethical-icon { font-size:1.6rem; margin-bottom:10px; }
+.seo-ethical-title { font-family:var(--font-head); font-size:.92rem; font-weight:800; color:var(--white); margin-bottom:6px; }
+.seo-ethical-desc { font-size:.78rem; color:var(--text-muted); line-height:1.65; }
+
+/* ── Audience Grid ── */
+.seo-audience-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:3rem; }
+.seo-audience-card { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius); padding:20px 18px; transition:all .3s; position:relative; overflow:hidden; }
+.seo-audience-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--green)); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.seo-audience-card:hover::after { transform:scaleX(1); }
+.seo-audience-card:hover { border-color:var(--border-strong); transform:translateY(-3px); }
+.seo-audience-icon { font-size:1.3rem; margin-bottom:6px; }
+.seo-audience-title { font-family:var(--font-head); font-size:.85rem; font-weight:700; color:var(--white); }
+
+/* ── What We Do (detailed service blocks) ── */
+.seo-service-block { padding:90px 5%; border-bottom:1px solid var(--border); scroll-margin-top:120px; }
+.seo-service-block:nth-child(even) { background:var(--bg-deep); }
+.seo-service-block:nth-child(odd)  { background:var(--bg-void); }
+.seo-sb-inner { max-width:1200px; margin:0 auto; }
+.seo-sb-header { text-align:center; margin-bottom:3rem; }
+.seo-sb-title { font-size:clamp(26px,3.5vw,40px); font-weight:800; color:var(--white); margin-bottom:10px; line-height:1.15; }
+.seo-sb-desc { font-size:14px; color:var(--text-secondary); line-height:1.8; max-width:640px; margin:0 auto; }
+.seo-sb-offerings { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.seo-sb-offering { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-sm); padding:14px 12px; text-align:center; font-size:.76rem; color:var(--text-secondary); transition:all .3s; }
+.seo-sb-offering:hover { border-color:var(--border-strong); color:var(--text-primary); transform:translateY(-2px); }
+
+/* ── Form ── */
+.seo-form-section { padding:100px 5%; background:var(--bg-void); position:relative; overflow:hidden; }
+.seo-form-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 100%,rgba(10,102,194,.06) 0%,transparent 60%); }
+.seo-form-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start; position:relative; }
+.seo-form-card { background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius-xl); overflow:hidden; }
+.seo-form-header { background:linear-gradient(135deg,var(--bg-elevated),var(--bg-card)); padding:30px; border-bottom:1px solid var(--border); }
+.seo-form-header h3 { font-size:20px; font-weight:800; color:var(--white); margin-bottom:4px; }
+.seo-form-header p { color:var(--text-secondary); font-size:13px; }
+.seo-form-body { padding:30px; }
+.seo-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.seo-form-group { display:flex; flex-direction:column; gap:5px; margin-bottom:14px; }
+.seo-form-label { font-family:var(--font-mono); font-size:9px; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:var(--text-muted); }
+.seo-form-input,.seo-form-select,.seo-form-textarea { padding:11px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:var(--font-body); font-size:13px; color:var(--white); background:var(--bg-elevated); outline:none; transition:border-color .3s,box-shadow .3s; width:100%; }
+.seo-form-input:focus,.seo-form-select:focus,.seo-form-textarea:focus { border-color:var(--blue); box-shadow:0 0 0 3px var(--blue-glow); }
+.seo-form-input::placeholder,.seo-form-textarea::placeholder { color:var(--text-faint); }
+.seo-form-select { color:var(--text-secondary); }
+.seo-form-textarea { resize:vertical; min-height:80px; }
+.seo-form-benefits { display:flex; flex-direction:column; gap:14px; }
+.seo-form-benefit { display:flex; gap:14px; align-items:flex-start; padding:16px; background:var(--bg-card); border:1px solid var(--border-card); border-radius:var(--radius); transition:all .3s; }
+.seo-form-benefit:hover { border-color:var(--border-strong); transform:translateX(4px); }
+.seo-fb-icon { width:38px; height:38px; border-radius:8px; background:var(--blue-subtle); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+.seo-fb-title { font-family:var(--font-head); font-size:.85rem; font-weight:700; color:var(--white); margin-bottom:2px; }
+.seo-fb-desc { font-size:.76rem; color:var(--text-muted); line-height:1.6; }
+
+/* ── Sticky Mobile CTA ── */
+.sticky-mobile-cta { display:none; position:fixed; bottom:0; left:0; right:0; z-index:400; padding:10px 5%; background:rgba(6,12,20,.95); backdrop-filter:blur(20px); border-top:1px solid var(--border); gap:10px; }
+@media(min-width:769px){ .sticky-mobile-cta { display:none !important; } }
+body.page-template-page-seo-services .sticky-mobile-cta { display:none; }
+@media(max-width:768px){ body.page-template-page-seo-services .sticky-mobile-cta { display:flex; } }
+
+/* ── Scroll Reveal ── */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-delay-1 { transition-delay:0s; }
+.reveal-delay-2 { transition-delay:.1s; }
+.reveal-delay-3 { transition-delay:.2s; }
+.reveal-delay-4 { transition-delay:.3s; }
+.reveal-delay-5 { transition-delay:.4s; }
+
+/* ── Responsive ── */
+@media(max-width:1100px){
+  .seo-hero-layout { grid-template-columns:1fr; gap:50px; }
+  .seo-hero-visual { max-width:450px; margin:0 auto; }
+  .seo-problems-grid { grid-template-columns:1fr 1fr; }
+  .seo-services-grid { grid-template-columns:1fr 1fr; }
+  .seo-why-grid { grid-template-columns:1fr 1fr; }
+  .seo-ethical-grid { grid-template-columns:1fr 1fr; }
+  .seo-audience-grid { grid-template-columns:1fr 1fr; }
+  .seo-checklist-grid { grid-template-columns:1fr 1fr; }
+  .seo-process-steps { grid-template-columns:repeat(2,1fr); }
+  .seo-process-steps::before { display:none; }
+  .seo-form-inner { grid-template-columns:1fr; gap:36px; }
+  .seo-sb-offerings { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:768px){
+  .seo-hero-layout { grid-template-columns:1fr; gap:40px; }
+  .seo-hero-visual { display:none; }
+  .seo-problems-grid { grid-template-columns:1fr; }
+  .seo-services-grid { grid-template-columns:1fr; }
+  .seo-why-grid { grid-template-columns:1fr; }
+  .seo-ethical-grid { grid-template-columns:1fr; }
+  .seo-audience-grid { grid-template-columns:1fr; }
+  .seo-checklist-grid { grid-template-columns:1fr; }
+  .seo-process-steps { grid-template-columns:1fr 1fr; }
+  .seo-hero-headline { font-size:clamp(2.4rem,10vw,3.6rem); }
+  .seo-hero-actions .lb { width:100%; justify-content:center; }
+  .seo-sb-offerings { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:640px){ .seo-process-steps { grid-template-columns:1fr; } .seo-sb-offerings { grid-template-columns:1fr; } }
+@media(max-width:480px){ .seo-form-row { grid-template-columns:1fr; } .seo-form-body { padding:20px; } .seo-form-input,.seo-form-select,.seo-form-textarea { font-size:16px; } }
+
+/* ── Footer ── */
+.seo-footer { background:#030810; border-top:1px solid var(--border-card); padding:48px 5% 0; margin-top:0; }
+.seo-footer-inner { max-width:1200px; margin:0 auto; }
+.seo-footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:40px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,.04); }
+.seo-footer-brand p { font-size:13px; color:var(--text-muted); line-height:1.7; max-width:300px; }
+.seo-footer-col h4 { font-family:var(--font-mono); font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--white); margin-bottom:18px; }
+.seo-footer-links { display:flex; flex-direction:column; gap:8px; }
+.seo-footer-links a { font-size:13px; color:var(--text-muted); transition:color .2s; text-decoration:none; }
+.seo-footer-links a:hover { color:var(--blue); }
+.seo-footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding:18px 0; }
+.seo-footer-copy { font-size:11px; color:var(--text-faint); }
+.seo-footer-gstin { font-family:var(--font-mono); font-size:.62rem; color:var(--text-muted); background:rgba(255,255,255,.03); border:1px solid var(--border-card); padding:.18rem .6rem; border-radius:4px; }
+@media(max-width:768px){ .seo-footer-grid { grid-template-columns:1fr; gap:28px; } .seo-footer-bottom { flex-direction:column; text-align:center; } }
+</style>
+
+<!-- ── Minimal Header ── -->
+<header class="seo-header">
+  <div class="seo-header-inner">
+    <a href="https://adscale.co.in" class="seo-header-logo">
+      <img src="https://adscale.co.in/wp-content/uploads/2026/05/logo-ad.png" alt="AdScale Media" class="seo-header-logo-img">
+      <span class="seo-header-logo-text">Ad<span>Scale</span> Media</span>
+    </a>
+    <div class="seo-header-actions">
+      <a href="#seo-form" class="lb lb-sm lb-hide-mobile"><div class="lb-shine"></div><span class="lb-text">Get a Free SEO Audit</span></a>
+      <a href="tel:+917388509954" class="lb lb-orange lb-sm"><div class="lb-shine"></div><span class="lb-text">📞 Call Now</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="seo-hero" id="hero">
+  <div class="seo-hero-overlay"></div>
+  <div class="seo-orb seo-orb-1"></div>
+  <div class="seo-orb seo-orb-2"></div>
+  <div class="seo-hero-layout">
+    <div class="seo-hero-text">
+      <div class="seo-hero-eyebrow">AdScale Media — SEO Services</div>
+      <h1 class="seo-hero-headline">
+        Turn Google Searches<br>
+        <span class="accent">Into Business</span><br>
+        <span class="accent-orange">Growth.</span>
+      </h1>
+      <p class="seo-hero-sub">AdScale helps businesses improve search visibility, attract relevant visitors, and build sustainable organic growth through structured, transparent, and performance-focused SEO.</p>
+      <div class="seo-hero-actions">
+        <a href="#seo-form" class="lb lb-orange"><div class="lb-shine"></div><span class="lb-text">Get a Free SEO Audit <span class="arrow">→</span></span></a>
+        <a href="#seo-form" class="lb"><div class="lb-shine"></div><span class="lb-text">Book an SEO Strategy Call</span></a>
+      </div>
+      <div class="seo-hero-highlights">
+        <div class="seo-hero-highlight">Search-intent-focused strategy</div>
+        <div class="seo-hero-highlight">Technical SEO improvements</div>
+        <div class="seo-hero-highlight">Transparent monthly reporting</div>
+        <div class="seo-hero-highlight">Long-term organic growth</div>
+      </div>
+      <div class="seo-hero-trust">No fake rankings. No spam tactics. Just honest, ethical SEO that builds long-term visibility.</div>
+    </div>
+    <div class="seo-hero-visual">
+      <div class="seo-h-card" id="heroCard">
+        <div class="seo-hc-dots"><span></span><span></span><span></span></div>
+        <div class="seo-hc-body">
+          <div class="seo-hc-row"><span class="seo-hc-label">Service</span><span class="seo-hc-value">Search Engine Optimization</span></div>
+          <div class="seo-hc-row"><span class="seo-hc-label">Focus</span><span class="seo-hc-value">Visibility + Traffic + Leads</span></div>
+          <div class="seo-hc-divider"></div>
+          <div class="seo-hc-metrics">
+            <div><div class="seo-hc-m-val">Technical SEO</div><div class="seo-hc-m-bar"><div style="width:90%"></div></div></div>
+            <div><div class="seo-hc-m-val">On-Page Optimization</div><div class="seo-hc-m-bar"><div style="width:85%"></div></div></div>
+            <div><div class="seo-hc-m-val">Content Strategy</div><div class="seo-hc-m-bar"><div style="width:80%"></div></div></div>
+            <div><div class="seo-hc-m-val">Local SEO</div><div class="seo-hc-m-bar"><div style="width:88%"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="seo-h-float seo-h-float-1">
+        <div class="seo-hf-icon">🔍</div>
+        <div><div class="seo-hf-val">Keyword Research</div><div class="seo-hf-label">Search intent focused</div></div>
+      </div>
+      <div class="seo-h-float seo-h-float-2">
+        <div class="seo-hf-icon">📊</div>
+        <div><div class="seo-hf-val">Monthly Reports</div><div class="seo-hf-label">Clear progress tracking</div></div>
+      </div>
+      <div class="seo-h-float seo-h-float-3">
+        <div class="seo-hf-icon">🌱</div>
+        <div><div class="seo-hf-val">Sustainable Growth</div><div class="seo-hf-label">Ethical white-hat SEO</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="scrollArrow" onclick="var t=document.getElementById('why-seo');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:99999;display:flex;flex-direction:column;align-items:center;gap:6px;">
+  <div style="width:1px;height:28px;background:linear-gradient(180deg,#0a66c2,transparent);opacity:.6;"></div>
+  <div style="width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(10,102,194,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;" id="scrollArrowCircle">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a66c2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  </div>
+</div>
+<style>
+#scrollArrow { animation:saFade 2s ease-in-out infinite; }
+#scrollArrow:hover #scrollArrowCircle { border-color:#0a66c2; background:rgba(10,102,194,.08); }
+@keyframes saFade { 0%,100%{opacity:.5} 50%{opacity:1} }
+@media(max-width:768px){ #scrollArrow { bottom:4.5rem; } }
+</style>
+
+<!-- ═══════ WHY SEO MATTERS ═══════ -->
+<section class="seo-section seo-section-dark" id="why-seo">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3.5rem;">
+      <div class="section-label reveal" style="justify-content:center;">Why SEO Matters</div>
+      <h2 class="reveal reveal-delay-1">Search Visibility Is<br><span class="gradient-text">Your Competitive Advantage.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:580px;margin-left:auto;margin-right:auto;">When potential customers search for what you offer, your website needs to be visible. SEO makes that possible — not through shortcuts, but through a structured, strategic approach to search engine optimization.</p>
+    </div>
+    <div class="seo-why-grid">
+      <div class="seo-why-card reveal"><div class="seo-why-icon">👁️</div><div class="seo-why-title">Google Visibility</div><div class="seo-why-desc">Most online experiences begin with a search engine. If your website is not on the first page, you are invisible to customers actively looking for your services.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">📈</div><div class="seo-why-title">Organic Traffic</div><div class="seo-why-desc">Unlike paid ads, organic traffic continues to arrive without ongoing ad spend. SEO builds an asset that delivers visitors month after month.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">⭐</div><div class="seo-why-title">Brand Credibility</div><div class="seo-why-desc">Websites that rank well are perceived as more trustworthy and authoritative. SEO strengthens your brand's reputation and customer confidence.</div></div>
+      <div class="seo-why-card reveal"><div class="seo-why-icon">🎯</div><div class="seo-why-title">Qualified Leads</div><div class="seo-why-desc">SEO targets people actively searching for what you offer. These visitors have higher intent and are more likely to convert into customers.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">💰</div><div class="seo-why-title">Lower Acquisition Costs</div><div class="seo-why-desc">Over time, organic traffic costs significantly less than paid advertising. SEO delivers a strong return on investment for businesses that commit to the process.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">📍</div><div class="seo-why-title">Local Discovery</div><div class="seo-why-desc">Local SEO helps businesses appear in location-based searches and Google Maps, connecting you with nearby customers ready to engage.</div></div>
+      <div class="seo-why-card reveal"><div class="seo-why-icon">🌱</div><div class="seo-why-title">Sustainable Growth</div><div class="seo-why-desc">SEO is not a one-time fix. It is an ongoing process that builds momentum over time, creating lasting digital visibility and market presence.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">🏆</div><div class="seo-why-title">Competitive Positioning</div><div class="seo-why-desc">If your competitors rank above you, they capture the traffic and leads your business should be getting. SEO levels the playing field.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">🔄</div><div class="seo-why-title">Better User Experience</div><div class="seo-why-desc">SEO improvements — faster loading, better navigation, mobile optimization, clear content — create a better experience for every visitor.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ COMMON SEO PROBLEMS ═══════ -->
+<section class="seo-section seo-section-darker" id="problems">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3.5rem;">
+      <div class="section-label reveal" style="justify-content:center;color:var(--orange);">Common SEO Problems</div>
+      <h2 class="reveal reveal-delay-1">Is Your Website<br><span class="gradient-text">Struggling With SEO?</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:560px;margin-left:auto;margin-right:auto;">These are the most common SEO challenges businesses face. If any of these sound familiar, a structured SEO approach can help.</p>
+    </div>
+    <div class="seo-problems-grid">
+      <div class="seo-problem-card reveal"><div class="seo-problem-icon">🚫</div><div class="seo-problem-title">Not on Google</div><div class="seo-problem-desc">Your website exists but does not appear in search results. Pages may not be indexed or discoverable by search engines.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-1"><div class="seo-problem-icon">📉</div><div class="seo-problem-title">Low Organic Traffic</div><div class="seo-problem-desc">Your website receives minimal visitors from search engines despite having content and products to offer.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-2"><div class="seo-problem-icon">🎯</div><div class="seo-problem-title">Wrong Keywords</div><div class="seo-problem-desc">You are targeting search terms that your ideal customers are not actually using to find your services.</div></div>
+      <div class="seo-problem-card reveal"><div class="seo-problem-icon">🏁</div><div class="seo-problem-title">Competitors Rank Higher</div><div class="seo-problem-desc">Your competitors consistently appear above you, capturing the traffic and leads your business should be getting.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-1"><div class="seo-problem-icon">🔧</div><div class="seo-problem-title">Technical Errors</div><div class="seo-problem-desc">Broken links, crawl errors, server issues, and poor site structure prevent search engines from properly indexing your website.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-2"><div class="seo-problem-icon">🐢</div><div class="seo-problem-title">Slow Website</div><div class="seo-problem-desc">Slow loading speeds hurt your rankings and drive visitors away. Google prioritizes fast-loading websites in search results.</div></div>
+      <div class="seo-problem-card reveal"><div class="seo-problem-icon">📱</div><div class="seo-problem-title">Poor Mobile Experience</div><div class="seo-problem-desc">Your site does not work well on mobile devices, which affects rankings since Google uses mobile-first indexing.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-1"><div class="seo-problem-icon">📄</div><div class="seo-problem-title">Pages Not Indexed</div><div class="seo-problem-desc">Important pages on your website are not being added to Google's index, making them invisible in search results.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-2"><div class="seo-problem-icon">✏️</div><div class="seo-problem-title">Weak Content</div><div class="seo-problem-desc">Your content does not address what users are searching for, lacks depth, or is duplicated across multiple pages.</div></div>
+      <div class="seo-problem-card reveal"><div class="seo-problem-icon">📍</div><div class="seo-problem-title">Inconsistent Listings</div><div class="seo-problem-desc">Your business name, address, and phone number vary across directories, confusing search engines and reducing local visibility.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-1"><div class="seo-problem-icon">🔗</div><div class="seo-problem-title">Low-Quality Backlinks</div><div class="seo-problem-desc">Your website has few or poor-quality backlinks, limiting its authority and ability to rank competitively.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-2"><div class="seo-problem-icon">📋</div><div class="seo-problem-title">No Clear Reporting</div><div class="seo-problem-desc">You have no visibility into what is happening with your SEO — no data, no insights, no direction for improvement.</div></div>
+      <div class="seo-problem-card reveal"><div class="seo-problem-icon">📭</div><div class="seo-problem-title">Traffic Without Leads</div><div class="seo-problem-desc">You get visitors but they do not convert into enquiries, calls, or sales. Traffic alone does not grow a business.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-1"><div class="seo-problem-icon">📊</div><div class="seo-problem-title">Sudden Ranking Drops</div><div class="seo-problem-desc">Your rankings dropped unexpectedly. Google algorithm updates, technical issues, or competitor changes could be the cause.</div></div>
+      <div class="seo-problem-card reveal reveal-delay-2"><div class="seo-problem-icon">🧭</div><div class="seo-problem-title">No Long-Term Strategy</div><div class="seo-problem-desc">SEO efforts are inconsistent or reactive. Without a structured plan, sustainable results remain out of reach.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ COMPLETE SEO SERVICES ═══════ -->
+<section class="seo-section seo-section-dark" id="services-overview">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">Our SEO Services</div>
+      <h2 class="reveal reveal-delay-1">Complete Search Engine<br><span class="gradient-text">Optimization Services.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:600px;margin-left:auto;margin-right:auto;">Every business has unique SEO needs. We offer a full range of services — from technical audits to content strategy — designed to work together for sustainable organic growth.</p>
+    </div>
+    <div class="seo-services-grid">
+      <div class="seo-service-card reveal"><div class="seo-sc-icon">🔍</div><div class="seo-sc-title">SEO Audit</div><div class="seo-sc-desc">Comprehensive review of your website's search performance, technical health, content quality, and growth opportunities.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Indexing &amp; crawlability</span><span class="seo-sc-list-item">Page speed &amp; Core Web Vitals</span><span class="seo-sc-list-item">Metadata &amp; heading structure</span><span class="seo-sc-list-item">Backlink profile review</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-1"><div class="seo-sc-icon">🎯</div><div class="seo-sc-title">Keyword Research</div><div class="seo-sc-desc">Identify the actual search terms your potential customers use — based on relevance, search intent, and competition.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Primary &amp; long-tail keywords</span><span class="seo-sc-list-item">Local &amp; commercial intent keywords</span><span class="seo-sc-list-item">Competitor keyword analysis</span><span class="seo-sc-list-item">Keyword mapping &amp; content opportunities</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-2"><div class="seo-sc-icon">📄</div><div class="seo-sc-title">On-Page SEO</div><div class="seo-sc-desc">Optimizing individual pages to help search engines and visitors understand your content and take action.</div><div class="seo-sc-list"><span class="seo-sc-list-item">SEO titles &amp; meta descriptions</span><span class="seo-sc-list-item">Heading hierarchy &amp; URL structure</span><span class="seo-sc-list-item">Internal linking &amp; image alt text</span><span class="seo-sc-list-item">Schema markup &amp; featured snippet optimization</span></div></div>
+      <div class="seo-service-card reveal"><div class="seo-sc-icon">⚙️</div><div class="seo-sc-title">Technical SEO</div><div class="seo-sc-desc">Improving your website's infrastructure to ensure search engines can crawl, index, and understand your content effectively.</div><div class="seo-sc-list"><span class="seo-sc-list-item">XML sitemap &amp; robots.txt</span><span class="seo-sc-list-item">Canonical tags &amp; redirects</span><span class="seo-sc-list-item">Mobile responsiveness &amp; Core Web Vitals</span><span class="seo-sc-list-item">Structured data &amp; page speed</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-1"><div class="seo-sc-icon">✏️</div><div class="seo-sc-title">Content SEO</div><div class="seo-sc-desc">Strategic content development that builds topical authority and answers real customer questions.</div><div class="seo-sc-list"><span class="seo-sc-list-item">SEO content strategy &amp; topic clusters</span><span class="seo-sc-list-item">Service page &amp; landing page optimization</span><span class="seo-sc-list-item">Content gap analysis &amp; refreshes</span><span class="seo-sc-list-item">E-E-A-T &amp; readability improvements</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-2"><div class="seo-sc-icon">📍</div><div class="seo-sc-title">Local SEO</div><div class="seo-sc-desc">Helping your business appear in location-based Google searches and Google Maps results.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Google Business Profile optimization</span><span class="seo-sc-list-item">NAP consistency &amp; local citations</span><span class="seo-sc-list-item">Local keyword targeting &amp; landing pages</span><span class="seo-sc-list-item">Review strategy &amp; local schema</span></div></div>
+      <div class="seo-service-card reveal"><div class="seo-sc-icon">🌐</div><div class="seo-sc-title">Off-Page SEO</div><div class="seo-sc-desc">Building credibility and authority outside your website through ethical, quality-focused initiatives.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Backlink profile analysis &amp; strategy</span><span class="seo-sc-list-item">Quality link-building &amp; digital PR</span><span class="seo-sc-list-item">Toxic backlink identification</span><span class="seo-sc-list-item">Brand mentions &amp; citation building</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-1"><div class="seo-sc-icon">📊</div><div class="seo-sc-title">Monthly Reporting</div><div class="seo-sc-desc">Clear, understandable monthly updates that explain what changed, why it matters, and what happens next.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Keyword position &amp; traffic trends</span><span class="seo-sc-list-item">Search Console &amp; Analytics data</span><span class="seo-sc-list-item">Completed activities &amp; next steps</span><span class="seo-sc-list-item">Business-focused summary &amp; recommendations</span></div></div>
+      <div class="seo-service-card reveal reveal-delay-2"><div class="seo-sc-icon">🧭</div><div class="seo-sc-title">SEO Strategy</div><div class="seo-sc-desc">A prioritized, customized plan covering technical fixes, content, on-page improvements, local SEO, and authority building.</div><div class="seo-sc-list"><span class="seo-sc-list-item">Audit-based recommendations</span><span class="seo-sc-list-item">Competitor &amp; market analysis</span><span class="seo-sc-list-item">Growth roadmap &amp; milestone planning</span><span class="seo-sc-list-item">Long-term organic growth approach</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ DETAILED SERVICE BLOCKS ═══════ -->
+<div id="detailed-services">
+
+<div class="seo-service-block" id="seo-audit">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 01</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">SEO <span class="gradient-text">Audit</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">A thorough review of your website's current search performance, technical health, content quality, indexing status, on-page structure, user experience, competitor positioning, and growth opportunities.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Indexing Issues</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Crawlability</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Page Speed</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Mobile Usability</div>
+      <div class="seo-sb-offering reveal">Broken Links</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Duplicate Content</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Metadata Review</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Heading Structure</div>
+      <div class="seo-sb-offering reveal">Internal Links</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Keyword Targeting</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Content Gaps</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Backlink Profile</div>
+      <div class="seo-sb-offering reveal">Local SEO Signals</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Core Web Vitals</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Conversion Issues</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Competitor Review</div>
+    </div>
+    <div class="text-center mt-32 reveal">
+      <a href="#seo-form" class="lb lb-orange"><div class="lb-shine"></div><span class="lb-text">Request a Free SEO Audit <span class="arrow">→</span></span></a>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="keyword-research">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 02</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Keyword <span class="gradient-text">Research</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Identifying the actual phrases your potential customers use when searching for services, products, and solutions — based on relevance and search intent, not just volume.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Primary Keywords</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Secondary Keywords</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Long-Tail Keywords</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Local Keywords</div>
+      <div class="seo-sb-offering reveal">Commercial Intent</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Informational Keywords</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Competitor Research</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Keyword Difficulty</div>
+      <div class="seo-sb-offering reveal">Search Intent Analysis</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Keyword Mapping</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Content Opportunities</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Landing Page Targeting</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="onpage-seo">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 03</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">On-Page <span class="gradient-text">SEO</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Optimizing individual pages to help search engines and visitors understand your content, find what they need, and take action.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">SEO Titles</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Meta Descriptions</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Heading Structure</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Keyword Placement</div>
+      <div class="seo-sb-offering reveal">URL Optimization</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Internal Linking</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Image Alt Text</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Content Formatting</div>
+      <div class="seo-sb-offering reveal">Schema Opportunities</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Featured Snippet Opt.</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">CTA Placement</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Duplicate Content</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="technical-seo">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 04</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Technical <span class="gradient-text">SEO</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Improving your website's ability to be crawled, indexed, loaded, and understood by search engines for better visibility and performance.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Crawlability</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Indexation</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">XML Sitemap</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Robots.txt</div>
+      <div class="seo-sb-offering reveal">Canonical Tags</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Redirects</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Broken Links</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">HTTPS &amp; Security</div>
+      <div class="seo-sb-offering reveal">Mobile Responsiveness</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Core Web Vitals</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Page Speed</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Structured Data</div>
+      <div class="seo-sb-offering reveal">JavaScript Rendering</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">URL Structure</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Image Optimization</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Site Architecture</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="content-seo">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 05</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Content <span class="gradient-text">SEO</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Building topical authority and targeting real customer questions through strategic, search-intent-aligned content development.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">SEO Content Strategy</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Service Page Optimization</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Landing Page Content</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Blog Content Planning</div>
+      <div class="seo-sb-offering reveal">Topic Clusters</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Content Briefs</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Search Intent Matching</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Content Refreshes</div>
+      <div class="seo-sb-offering reveal">Content Gap Analysis</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">FAQ Content</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Local Content</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">E-E-A-T Improvements</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="local-seo">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 06</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Local <span class="gradient-text">SEO</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Helping your business appear in location-based Google searches and Google Maps results where local customers are actively looking.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Google Business Profile</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Category Selection</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">NAP Consistency</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Local Keywords</div>
+      <div class="seo-sb-offering reveal">Local Landing Pages</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Local Citations</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Map Visibility</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Service Area Opt.</div>
+      <div class="seo-sb-offering reveal">Review Strategy</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Local Schema</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Location Content</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Directory Optimization</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="offpage-seo">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 07</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Off-Page <span class="gradient-text">SEO</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Building credibility and authority through ethical external initiatives — quality over quantity, always.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Backlink Profile Review</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Competitor Analysis</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Quality Link Strategy</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Business Citations</div>
+      <div class="seo-sb-offering reveal">Directory Submissions</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Digital PR</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Brand Mentions</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Link Reclamation</div>
+      <div class="seo-sb-offering reveal">Broken Link Building</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Toxic Link Removal</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Anchor Text Analysis</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Authority Content</div>
+    </div>
+  </div>
+</div>
+
+<div class="seo-service-block" id="seo-reporting">
+  <div class="seo-sb-inner">
+    <div class="seo-sb-header">
+      <div class="section-label reveal" style="justify-content:center;">Service 08</div>
+      <h2 class="seo-sb-title reveal reveal-delay-1">Monthly <span class="gradient-text">Reporting</span></h2>
+      <p class="seo-sb-desc reveal reveal-delay-2">Clear, understandable monthly reports that explain what changed, why it matters, and what happens next — without overwhelming you with unexplained metrics.</p>
+    </div>
+    <div class="seo-sb-offerings">
+      <div class="seo-sb-offering reveal">Keyword Position Changes</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Organic Traffic Trends</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Landing Page Performance</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Search Impressions</div>
+      <div class="seo-sb-offering reveal">Search Clicks &amp; CTR</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Conversion Tracking</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Technical Issues Resolved</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Content Completed</div>
+      <div class="seo-sb-offering reveal">Backlink Updates</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Local SEO Progress</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Google Search Console</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Google Analytics</div>
+      <div class="seo-sb-offering reveal">Completed Activities</div>
+      <div class="seo-sb-offering reveal reveal-delay-1">Next Month Action Plan</div>
+      <div class="seo-sb-offering reveal reveal-delay-2">Recommendations</div>
+      <div class="seo-sb-offering reveal reveal-delay-3">Business Summary</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ═══════ SEO PROCESS ═══════ -->
+<section class="seo-section seo-section-dark" id="process">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">Our SEO Process</div>
+      <h2 class="reveal reveal-delay-1">A Structured Approach<br><span class="gradient-text">To Organic Growth.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:520px;margin-left:auto;margin-right:auto;">Our SEO process follows a proven methodology — from discovery to ongoing improvement. No guesswork, no shortcuts. Just consistent, strategic execution.</p>
+    </div>
+    <div class="seo-process-steps">
+      <div class="seo-process-step reveal"><div class="seo-ps-num">01</div><div class="seo-ps-title">Business Discovery</div><div class="seo-ps-desc">Understanding your company, audience, services, locations, competitors, and goals.</div></div>
+      <div class="seo-process-step reveal reveal-delay-1"><div class="seo-ps-num">02</div><div class="seo-ps-title">SEO Audit</div><div class="seo-ps-desc">Reviewing technical health, on-page SEO, content, backlinks, and search visibility.</div></div>
+      <div class="seo-process-step reveal reveal-delay-2"><div class="seo-ps-num">03</div><div class="seo-ps-title">Keyword Research</div><div class="seo-ps-desc">Identifying relevant search terms, market gaps, customer intent, and competitor opportunities.</div></div>
+      <div class="seo-process-step reveal reveal-delay-3"><div class="seo-ps-num">04</div><div class="seo-ps-title">SEO Strategy</div><div class="seo-ps-desc">Creating a prioritized plan covering technical fixes, content, on-page improvements, and authority building.</div></div>
+      <div class="seo-process-step reveal"><div class="seo-ps-num">05</div><div class="seo-ps-title">Implementation</div><div class="seo-ps-desc">Applying approved changes to the website and supporting platforms systematically.</div></div>
+      <div class="seo-process-step reveal reveal-delay-1"><div class="seo-ps-num">06</div><div class="seo-ps-title">Content &amp; Authority</div><div class="seo-ps-desc">Building useful content, improving topical coverage, and pursuing ethical off-page opportunities.</div></div>
+      <div class="seo-process-step reveal reveal-delay-2"><div class="seo-ps-num">07</div><div class="seo-ps-title">Monitoring</div><div class="seo-ps-desc">Tracking indexing, rankings, traffic, conversions, technical health, and local search performance.</div></div>
+      <div class="seo-process-step reveal reveal-delay-3"><div class="seo-ps-num">08</div><div class="seo-ps-title">Reporting &amp; Improvement</div><div class="seo-ps-desc">Sharing progress, explaining findings, refining priorities, and planning the next growth cycle.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ WHAT IS INCLUDED ═══════ -->
+<section class="seo-section seo-section-darker" id="included">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">What's Included</div>
+      <h2 class="reveal reveal-delay-1">Everything You Need<br><span class="gradient-text">For a Complete SEO Program.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:540px;margin-left:auto;margin-right:auto;">Scope depends on your selected plan and website requirements. Here is what a comprehensive SEO engagement typically includes.</p>
+    </div>
+    <div class="seo-checklist-grid">
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Initial SEO Audit</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> Keyword Research</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Competitor Research</div>
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Keyword Mapping</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> On-Page Optimization</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Technical SEO Review</div>
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Content Recommendations</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> Internal Linking Strategy</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Local SEO Support</div>
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Off-Page SEO Planning</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> Search Console Review</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Google Analytics Review</div>
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Monthly Reporting</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> Monthly Action Plan</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Performance Monitoring</div>
+      <div class="seo-checklist-item reveal"><span class="seo-checklist-icon">✓</span> Strategy Consultation</div>
+      <div class="seo-checklist-item reveal reveal-delay-1"><span class="seo-checklist-icon">✓</span> Website Improvement Recommendations</div>
+      <div class="seo-checklist-item reveal reveal-delay-2"><span class="seo-checklist-icon">✓</span> Dedicated SEO Support</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ WHY CHOOSE ADSCALE ═══════ -->
+<section class="seo-section seo-section-dark" id="why-adscale">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">Why AdScale</div>
+      <h2 class="reveal reveal-delay-1">Why Choose AdScale<br><span class="gradient-text">For Your SEO?</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:560px;margin-left:auto;margin-right:auto;">We approach SEO differently — focusing on methodology, transparency, and long-term value rather than shortcuts or inflated promises.</p>
+    </div>
+    <div class="seo-why-grid">
+      <div class="seo-why-card reveal"><div class="seo-why-icon">📊</div><div class="seo-why-title">Business-First Strategy</div><div class="seo-why-desc">Every SEO decision starts with your business goals. We optimize for leads, enquiries, and revenue — not just rankings and traffic.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">🎯</div><div class="seo-why-title">Search Intent Focus</div><div class="seo-why-desc">We target keywords based on what your customers actually search for and why, ensuring relevance and higher conversion potential.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">📋</div><div class="seo-why-title">Transparent Process</div><div class="seo-why-desc">You will always know what we are working on, why, and how it connects to your business objectives. No hidden activities.</div></div>
+      <div class="seo-why-card reveal"><div class="seo-why-icon">🛡️</div><div class="seo-why-title">Ethical Practices</div><div class="seo-why-desc">We follow Google's guidelines strictly. No black-hat tactics, spam links, or shortcuts that could harm your website's long-term presence.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">📈</div><div class="seo-why-title">Clear Monthly Reports</div><div class="seo-why-desc">Reports that explain what changed, why it matters, and what comes next — without drowning you in confusing technical data.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">🔧</div><div class="seo-why-title">Technical &amp; Content Expertise</div><div class="seo-why-desc">We combine technical SEO knowledge with content strategy expertise — addressing both the infrastructure and the message.</div></div>
+      <div class="seo-why-card reveal"><div class="seo-why-icon">📍</div><div class="seo-why-title">Local &amp; National SEO</div><div class="seo-why-desc">Whether you serve a local area or a national market, we tailor our approach to match your geographic reach and goals.</div></div>
+      <div class="seo-why-card reveal reveal-delay-1"><div class="seo-why-icon">🔄</div><div class="seo-why-title">Conversion-Focused</div><div class="seo-why-desc">SEO is not just about getting visitors — it is about getting the right visitors and guiding them toward meaningful actions.</div></div>
+      <div class="seo-why-card reveal reveal-delay-2"><div class="seo-why-icon">📞</div><div class="seo-why-title">Clear Communication</div><div class="seo-why-desc">We speak plain English, not SEO jargon. You will understand what we are doing, why it matters, and what results to expect.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ETHICAL SEO COMMITMENT ═══════ -->
+<section class="seo-section seo-section-darker" id="ethical">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;color:var(--green);">Ethical SEO Commitment</div>
+      <h2 class="reveal reveal-delay-1">We Build SEO That<br><span class="gradient-text">Lasts — Ethically.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:580px;margin-left:auto;margin-right:auto;">Sustainable SEO requires patience, quality, and strict adherence to search engine guidelines. Here is what we commit to — and what we will never do.</p>
+    </div>
+    <div class="seo-ethical-grid">
+      <div class="seo-ethical-card reveal"><div class="seo-ethical-icon">✅</div><div class="seo-ethical-title">No Ranking Guarantees</div><div class="seo-ethical-desc">We never promise specific rankings. No ethical agency can guarantee a #1 position. We focus on improving your visibility and performance over time.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-1"><div class="seo-ethical-icon">🚫</div><div class="seo-ethical-title">No Automated Backlink Spam</div><div class="seo-ethical-desc">We do not use automated tools to generate backlinks. Every link-building effort is manual, researched, and evaluated for quality.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-2"><div class="seo-ethical-icon">✏️</div><div class="seo-ethical-title">No Copied Content</div><div class="seo-ethical-desc">Every piece of content we develop is original, researched, and written for your specific audience. We do not recycle or duplicate content.</div></div>
+      <div class="seo-ethical-card reveal"><div class="seo-ethical-icon">📝</div><div class="seo-ethical-title">No Keyword Stuffing</div><div class="seo-ethical-desc">We use keywords naturally within valuable content. Forcing keywords into pages creates poor user experiences and can trigger search penalties.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-1"><div class="seo-ethical-icon">👁️</div><div class="seo-ethical-title">No Hidden Text</div><div class="seo-ethical-desc">We never use hidden text, invisible keywords, or manipulative cloaking techniques. Every element on your page serves a real purpose.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-2"><div class="seo-ethical-icon">📊</div><div class="seo-ethical-title">No Misleading Reports</div><div class="seo-ethical-desc">Our reports reflect real data from Google Search Console, Google Analytics, and other verified sources. We never fabricate or inflate metrics.</div></div>
+      <div class="seo-ethical-card reveal"><div class="seo-ethical-icon">🛡️</div><div class="seo-ethical-title">No Black-Hat Tactics</div><div class="seo-ethical-desc">We strictly follow Google's Webmaster Guidelines. Cloaking, doorway pages, link schemes, and other manipulative tactics have no place in our work.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-1"><div class="seo-ethical-icon">⚙️</div><div class="seo-ethical-title">No Unnecessary Changes</div><div class="seo-ethical-desc">Every change we make has a clear purpose and expected impact. We do not make random or unnecessary modifications to your website.</div></div>
+      <div class="seo-ethical-card reveal reveal-delay-2"><div class="seo-ethical-icon">💬</div><div class="seo-ethical-title">No Unexplained Activities</div><div class="seo-ethical-desc">You will always know what work was completed, why it was prioritized, and how it contributes to your SEO goals.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ WHO THIS SERVICE IS FOR ═══════ -->
+<section class="seo-section seo-section-dark" id="audience">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">Who This Is For</div>
+      <h2 class="reveal reveal-delay-1">SEO Services Designed<br><span class="gradient-text">For Your Business.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:540px;margin-left:auto;margin-right:auto;">Our SEO services are suitable for a wide range of businesses at different stages of their digital journey.</p>
+    </div>
+    <div class="seo-audience-grid">
+      <div class="seo-audience-card reveal"><div class="seo-audience-icon">🚀</div><div class="seo-audience-title">New Businesses Launching a Website</div></div>
+      <div class="seo-audience-card reveal reveal-delay-1"><div class="seo-audience-icon">📉</div><div class="seo-audience-title">Existing Websites With Low Traffic</div></div>
+      <div class="seo-audience-card reveal reveal-delay-2"><div class="seo-audience-icon">📍</div><div class="seo-audience-title">Local Businesses Wanting Visibility</div></div>
+      <div class="seo-audience-card reveal"><div class="seo-audience-icon">📊</div><div class="seo-audience-title">Businesses Losing Rankings</div></div>
+      <div class="seo-audience-card reveal reveal-delay-1"><div class="seo-audience-icon">🌍</div><div class="seo-audience-title">Companies Entering New Locations</div></div>
+      <div class="seo-audience-card reveal reveal-delay-2"><div class="seo-audience-icon">🛒</div><div class="seo-audience-title">E-Commerce Stores</div></div>
+      <div class="seo-audience-card reveal"><div class="seo-audience-icon">💼</div><div class="seo-audience-title">Service Businesses</div></div>
+      <div class="seo-audience-card reveal reveal-delay-1"><div class="seo-audience-icon">📢</div><div class="seo-audience-title">Businesses Relying on Paid Ads</div></div>
+      <div class="seo-audience-card reveal reveal-delay-2"><div class="seo-audience-icon">🔄</div><div class="seo-audience-title">Companies Planning a Website Redesign</div></div>
+      <div class="seo-audience-card reveal"><div class="seo-audience-icon">🌱</div><div class="seo-audience-title">Brands That Want Sustainable Growth</div></div>
+    </div>
+    <div class="text-center mt-48 reveal" style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-lg);padding:28px;max-width:600px;margin-left:auto;margin-right:auto;">
+      <p style="font-size:.85rem;color:var(--text-secondary);"><strong style="color:var(--orange);">Important:</strong> SEO is not suitable for businesses expecting guaranteed overnight results. Sustainable organic growth requires time, consistency, and a commitment to quality. We focus on long-term visibility, not instant fixes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SEO AUDIT CTA ═══════ -->
+<section class="seo-section seo-section-darker" id="audit-cta">
+  <div class="seo-section-inner text-center">
+    <div class="section-label reveal" style="justify-content:center;">Free SEO Audit</div>
+    <h2 class="reveal reveal-delay-1" style="max-width:650px;margin:0 auto 16px;">Find Out What Is Limiting<br><span class="gradient-text">Your Google Visibility.</span></h2>
+    <p class="reveal reveal-delay-2" style="max-width:560px;margin:0 auto 36px;color:var(--text-secondary);font-size:15px;">Receive a preliminary review of key SEO opportunities and issues — including technical, content, keyword, local SEO, and conversion factors affecting your search performance.</p>
+    <div class="cta-actions reveal reveal-delay-3" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href="#seo-form" class="lb lb-orange"><div class="lb-shine"></div><span class="lb-text">Get My Free SEO Audit <span class="arrow">→</span></span></a>
+    </div>
+    <div class="reveal reveal-delay-4" style="display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
+      <div style="font-size:.75rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;"><span style="color:var(--green);">✓</span> No obligation</div>
+      <div style="font-size:.75rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;"><span style="color:var(--green);">✓</span> Preliminary review</div>
+      <div style="font-size:.75rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;"><span style="color:var(--green);">✓</span> Actionable insights</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="seo-section seo-section-dark" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="seo-section-inner">
+    <div class="text-center" style="margin-bottom:3rem;">
+      <div class="section-label reveal" style="justify-content:center;">FAQs</div>
+      <h2 class="reveal reveal-delay-1">Common Questions<br><span class="gradient-text">About Our SEO Services.</span></h2>
+      <p class="mt-16 reveal reveal-delay-2" style="max-width:520px;margin-left:auto;margin-right:auto;">Honest answers to the questions we hear most often from business owners exploring SEO for the first time.</p>
+    </div>
+    <div class="wd-faq">
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What is SEO?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">SEO stands for Search Engine Optimization. It is the practice of improving your website to increase its visibility when people search for products or services related to your business on Google and other search engines. The goal is to attract relevant visitors who are actively looking for what you offer.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">How long does SEO take to show results?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">SEO is a medium-to-long-term strategy. Most businesses start seeing meaningful improvements in 3 to 6 months. Technical fixes may show impact sooner, while content and authority building takes longer. Results depend on your website's current state, competition, and the scope of work required.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Can you guarantee first-page rankings?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">No ethical SEO agency can guarantee specific rankings. Google's algorithm considers hundreds of factors, many of which are outside our control. We focus on improving your website's quality, relevance, and authority — which gives you the best possible chance of ranking well over time.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What is included in an SEO audit?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">An SEO audit reviews your website's technical health, indexing status, crawlability, page speed, mobile usability, metadata, heading structure, content quality, keyword targeting, backlink profile, local SEO signals, and competitor positioning. It identifies what is working and what needs improvement.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">How do you select keywords?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">We select keywords based on relevance to your business, search intent (what the user wants), competition level, and potential to drive qualified traffic. We prioritize terms that align with your services and that real customers are using to find businesses like yours.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What is technical SEO?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Technical SEO refers to optimizing your website's infrastructure so search engines can crawl, index, and understand your content effectively. It includes site speed, mobile responsiveness, XML sitemaps, robots.txt, canonical tags, structured data, redirects, and HTTPS security.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What is on-page SEO?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">On-page SEO involves optimizing individual web pages to rank higher and earn more relevant traffic. This includes SEO titles, meta descriptions, heading structure, keyword placement, URL optimization, internal linking, image alt text, content formatting, and schema markup.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What is off-page SEO?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Off-page SEO refers to activities outside your website that influence your search rankings. This primarily includes building high-quality backlinks from reputable websites, earning brand mentions, local citations, and digital PR. We focus on quality and relevance, not volume.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Do you provide local SEO?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. Local SEO is a core part of our services. We optimize Google Business Profiles, ensure NAP consistency across directories, target local keywords, build local citations, and improve Google Maps visibility for businesses that serve specific geographic areas.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Can you optimize my Google Business Profile?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. We optimize your Google Business Profile with accurate business information, appropriate categories, relevant keywords, service descriptions, photos, and regular updates. We also provide guidance on managing reviews and engaging with customer questions.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Do you create SEO content?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. Content is an essential part of SEO. We develop content strategies based on keyword research, create content briefs, and can write or guide the creation of SEO-optimized pages, blog posts, FAQs, and service descriptions that address what your customers are searching for.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Do you build backlinks?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">We build backlinks through ethical, quality-focused methods — including content-driven outreach, digital PR, broken link building, and relevant business citations. We never buy links, use private blog networks, or engage in spammy link-building practices.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">How do you ensure backlink quality?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">We evaluate every potential backlink source for domain authority, relevance to your industry, traffic quality, and editorial standards. We avoid links from directories, link farms, and unrelated sites. Quality and relevance always matter more than the number of backlinks.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Will you need access to my website?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Certain technical and on-page SEO tasks require website access. We request limited, role-based access only for the specific platforms we need to work on. We follow strict security protocols and never make changes without your approval.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Do you use Google Analytics and Search Console?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. Google Analytics and Google Search Console are essential tools we use to track performance, identify issues, and measure progress. We set them up properly, ensure accurate tracking, and use the data to guide our SEO decisions and monthly reporting.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">What will I receive in monthly reports?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Monthly reports include keyword position changes, organic traffic trends, search impressions and clicks, landing page performance, technical issues resolved, content completed, backlink updates, local SEO progress, and a clear action plan for the next month — all explained in simple business language.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Can you optimize a newly launched website?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. New websites benefit greatly from SEO from day one. We can ensure proper technical setup, optimize pages for target keywords, set up analytics and Search Console, create a content plan, and build a foundation for long-term organic growth.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Can you fix SEO issues on an existing website?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. We regularly work with existing websites to identify and resolve SEO issues — including technical problems, content gaps, indexing errors, duplicate content, slow pages, broken links, and declining rankings. We start with a thorough audit to understand what needs to be fixed.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Is SEO better than paid advertising?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">SEO and paid advertising serve different purposes. SEO builds long-term, sustainable visibility without ongoing ad spend. Paid ads deliver immediate traffic but stop when you stop paying. Most successful businesses use both — SEO for long-term growth and paid ads for short-term campaigns.</span></div></div></div>
+      </div>
+      <div class="wd-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="wd-faq-q"><div class="wd-faq-ico"></div><span itemprop="name">Can SEO and Google Ads work together?</span></div>
+        <div class="wd-faq-a-wrap"><div class="wd-faq-a-inner"><div class="wd-faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><span itemprop="text">Yes. SEO and Google Ads complement each other effectively. SEO builds organic visibility for long-term traffic, while Google Ads can target specific keywords with immediate visibility. Running both allows you to dominate search results and capture traffic at every stage of the customer journey.</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ENQUIRY FORM ═══════ -->
+<section class="seo-form-section" id="seo-form">
+  <div class="seo-form-inner">
+    <div class="reveal">
+      <div class="section-label">Get Started</div>
+      <h2 style="font-size:clamp(26px,3.5vw,38px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.1;">Ready to Improve Your<br><span class="gradient-text">Google Visibility?</span></h2>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.8;margin-bottom:28px;">Tell us about your business and SEO goals. We will review your website and share actionable insights — no obligation.</p>
+      <div class="seo-form-benefits">
+        <div class="seo-form-benefit"><div class="seo-fb-icon">🔍</div><div><div class="seo-fb-title">Free SEO Audit</div><div class="seo-fb-desc">A preliminary review of your website's key SEO opportunities and issues at no cost.</div></div></div>
+        <div class="seo-form-benefit"><div class="seo-fb-icon">📋</div><div><div class="seo-fb-title">Custom SEO Proposal</div><div class="seo-fb-desc">A tailored plan with clear scope, deliverables, and pricing based on your specific needs.</div></div></div>
+        <div class="seo-form-benefit"><div class="seo-fb-icon">💬</div><div><div class="seo-fb-title">Expert Consultation</div><div class="seo-fb-desc">Speak directly with our SEO team to discuss your goals and get practical advice.</div></div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="seo-form-card">
+        <div class="seo-form-header"><h3>Request Your SEO Consultation</h3><p>No spam. No obligation. Just a clear conversation about your SEO needs.</p></div>
+        <div class="seo-form-body">
+          <form id="seoForm" onsubmit="return submitSEOEnquiry(event)">
+            <div class="seo-form-row">
+              <div class="seo-form-group"><label class="seo-form-label" for="seoName">Full Name *</label><input class="seo-form-input" type="text" id="seoName" name="name" placeholder="Your full name" required></div>
+              <div class="seo-form-group"><label class="seo-form-label" for="seoBusiness">Business Name *</label><input class="seo-form-input" type="text" id="seoBusiness" name="business" placeholder="Your company name" required></div>
+            </div>
+            <div class="seo-form-row">
+              <div class="seo-form-group"><label class="seo-form-label" for="seoPhone">Phone Number *</label><input class="seo-form-input" type="tel" id="seoPhone" name="phone" placeholder="+91 98765 43210" required></div>
+              <div class="seo-form-group"><label class="seo-form-label" for="seoEmail">Email Address *</label><input class="seo-form-input" type="email" id="seoEmail" name="email" placeholder="you@example.com" required></div>
+            </div>
+            <div class="seo-form-row">
+              <div class="seo-form-group"><label class="seo-form-label" for="seoWebsite">Website URL *</label><input class="seo-form-input" type="url" id="seoWebsite" name="website" placeholder="https://yourwebsite.com" required></div>
+              <div class="seo-form-group"><label class="seo-form-label" for="seoBusinessType">Business Type *</label>
+                <select class="seo-form-select" id="seoBusinessType" name="business_type" required>
+                  <option value="">Select your business type</option>
+                  <option value="small-business">Small Business</option>
+                  <option value="startup">Startup</option>
+                  <option value="local-business">Local Business</option>
+                  <option value="ecommerce">E-Commerce / D2C</option>
+                  <option value="healthcare">Healthcare</option>
+                  <option value="real-estate">Real Estate</option>
+                  <option value="education">Education / Institute</option>
+                  <option value="professional-services">Professional Services</option>
+                  <option value="manufacturing">Manufacturing</option>
+                  <option value="corporate">Corporate</option>
+                  <option value="hospitality">Restaurant / Hotel</option>
+                  <option value="consultant">Consultant / Personal Brand</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="seo-form-row">
+              <div class="seo-form-group"><label class="seo-form-label" for="seoLocation">Target Location</label><input class="seo-form-input" type="text" id="seoLocation" name="target_location" placeholder="e.g. Ghaziabad, Delhi NCR, All India"></div>
+              <div class="seo-form-group"><label class="seo-form-label" for="seoGoal">Primary SEO Goal *</label>
+                <select class="seo-form-select" id="seoGoal" name="seo_goal" required>
+                  <option value="">Select your primary goal</option>
+                  <option value="increase-traffic">Increase organic traffic</option>
+                  <option value="generate-leads">Generate more leads</option>
+                  <option value="improve-local">Improve local rankings</option>
+                  <option value="google-maps">Improve Google Maps visibility</option>
+                  <option value="recover-rankings">Recover lost rankings</option>
+                  <option value="new-website">Launch SEO for a new website</option>
+                  <option value="ecommerce">Improve e-commerce visibility</option>
+                  <option value="technical">Fix technical SEO issues</option>
+                  <option value="content">Build content strategy</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="seo-form-row">
+              <div class="seo-form-group"><label class="seo-form-label" for="seoStatus">Current SEO Status *</label>
+                <select class="seo-form-select" id="seoStatus" name="seo_status" required>
+                  <option value="">Select your current status</option>
+                  <option value="never">Never invested in SEO</option>
+                  <option value="internal">Currently doing SEO internally</option>
+                  <option value="agency">Working with another agency</option>
+                  <option value="previous">Previously worked with an agency</option>
+                  <option value="not-sure">Not sure</option>
+                </select>
+              </div>
+              <div class="seo-form-group"><label class="seo-form-label" for="seoBudget">Monthly SEO Budget</label>
+                <select class="seo-form-select" id="seoBudget" name="monthly_budget">
+                  <option value="">Select budget range</option>
+                  <option value="below-15k">Below ₹15,000</option>
+                  <option value="15k-30k">₹15,000 – ₹30,000</option>
+                  <option value="30k-50k">₹30,000 – ₹50,000</option>
+                  <option value="50k-1l">₹50,000 – ₹1,00,000</option>
+                  <option value="above-1l">Above ₹1,00,000</option>
+                  <option value="not-sure">Not Sure Yet</option>
+                </select>
+              </div>
+            </div>
+            <div class="seo-form-group"><label class="seo-form-label" for="seoMessage">Tell Us About Your SEO Needs</label><textarea class="seo-form-textarea" id="seoMessage" name="message" placeholder="Briefly describe your business, current SEO situation, and what you hope to achieve..." rows="3"></textarea></div>
+            <button type="submit" class="lb lb-orange lb-full" id="seoSubmitBtn" style="margin-top:8px;"><div class="lb-shine"></div><span class="lb-text" id="seoSubmitText">Request My SEO Consultation <span class="arrow">→</span></span></button>
+            <p style="text-align:center;margin-top:12px;font-size:11px;color:var(--text-faint);">We respect your privacy. No spam. No sales pressure — just a clear SEO assessment and proposal.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FINAL CTA ═══════ -->
+<section class="seo-section seo-section-dark final-cta" style="position:relative;overflow:hidden;">
+  <div class="seo-section-inner text-center">
+    <div class="section-label reveal" style="justify-content:center;">Still Evaluating?</div>
+    <h2 class="reveal reveal-delay-1" style="max-width:650px;margin-left:auto;margin-right:auto;">Ready to Build Sustainable<br><span class="gradient-text">Visibility on Google?</span></h2>
+    <p class="reveal reveal-delay-2" style="max-width:560px;margin:1rem auto 2rem;color:var(--text-secondary);">Start with a clear understanding of your website's current SEO position, growth opportunities, and priority actions. No obligation — just practical insights.</p>
+    <div class="cta-actions reveal reveal-delay-3" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href="#seo-form" class="lb lb-orange"><div class="lb-shine"></div><span class="lb-text">Get a Free SEO Audit <span class="arrow">→</span></span></a>
+      <a href="https://wa.me/917388509954" target="_blank" class="lb lb-green"><div class="lb-shine"></div><span class="lb-text">💬 Book an SEO Strategy Call</span></a>
+    </div>
+    <div class="reveal reveal-delay-4" style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;">
+      <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center;gap:.5rem;"><span style="font-size:1rem;">🔍</span> Free preliminary audit</div>
+      <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center;gap:.5rem;"><span style="font-size:1rem;">📋</span> No obligation proposal</div>
+      <div style="font-size:.78rem;color:var(--text-muted);display:flex;align-items:center;gap:.5rem;"><span style="font-size:1rem;">💬</span> Expert advice included</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="seo-footer">
+  <div class="seo-footer-inner">
+    <div class="seo-footer-grid">
+      <div class="seo-footer-brand">
+        <a href="https://adscale.co.in" class="seo-header-logo" style="margin-bottom:12px;">
+          <img src="https://adscale.co.in/wp-content/uploads/2026/05/logo-ad.png" alt="AdScale Media" class="seo-header-logo-img">
+          <span class="seo-header-logo-text">Ad<span>Scale</span> Media</span>
+        </a>
+        <p>Performance marketing &amp; SEO agency helping businesses build sustainable organic growth through structured, transparent, and ethical search engine optimization.</p>
+      </div>
+      <div class="seo-footer-col">
+        <h4>Quick Links</h4>
+        <div class="seo-footer-links">
+          <a href="https://adscale.co.in">Home</a>
+          <a href="https://adscale.co.in/about">About Us</a>
+          <a href="https://adscale.co.in/services">Services</a>
+          <a href="https://adscale.co.in/contact">Contact</a>
+        </div>
+      </div>
+      <div class="seo-footer-col">
+        <h4>Contact</h4>
+        <div class="seo-footer-links">
+          <a href="tel:+917388509954">+91 7388509954</a>
+          <a href="mailto:info@adscale.co.in">info@adscale.co.in</a>
+          <a href="https://wa.me/917388509954" target="_blank">WhatsApp</a>
+          <a href="#">Lucknow, UP, India</a>
+        </div>
+      </div>
+    </div>
+    <div class="seo-footer-bottom">
+      <span class="seo-footer-copy">© 2026 AdScale Media. All rights reserved. Lucknow, India.</span>
+      <span class="seo-footer-gstin">GSTIN: 09GYAPD4822F1ZN</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-mobile-cta">
+  <a href="#seo-form" class="lb lb-orange" style="flex:1;justify-content:center;font-size:.78rem;padding:.65rem 1rem;"><div class="lb-shine"></div><span class="lb-text">Get a Free SEO Audit <span class="arrow">→</span></span></a>
+  <a href="https://wa.me/917388509954" target="_blank" class="lb lb-circle" style="background:#020A04;flex-shrink:0;box-shadow:0 0 22px -6px rgba(37,211,102,.5);">
+    <div class="lb-shine" style="background:radial-gradient(circle at 50% 0%,rgba(37,211,102,.2) 0%,transparent 65%);"></div>
+    <span class="lb-text">💬</span>
+  </a>
+</div>
+
+<script>
+/* ── Scroll Reveal ── */
+(function(){var e=document.querySelectorAll('.reveal');if(!e.length)return;var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add('visible'),t.unobserve(e.target))})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});e.forEach(function(e){t.observe(e)})})();
+
+/* ── FAQ Accordion ── */
+(function(){var i=document.querySelectorAll('.wd-faq-item');i.forEach(function(e){var q=e.querySelector('.wd-faq-q');q&&q.addEventListener('click',function(){var o=e.classList.contains('open');document.querySelectorAll('.wd-faq-item.open').forEach(function(n){n.classList.remove('open')});if(!o)e.classList.add('open')})})})();
+
+/* Toast */
+function showToast(e,t){var n=document.createElement('div');n.textContent=e,n.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:99999;padding:14px 28px;border-radius:12px;font-size:14px;color:#fff;background:rgba(6,12,20,.95);backdrop-filter:blur(20px);border:1px solid '+(t==='error'?'rgba(230,57,70,.3)':'rgba(0,200,150,.3)')+';box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;transition:opacity .4s;max-width:90vw;text-align:center;',document.body.appendChild(n),requestAnimationFrame(function(){n.style.opacity='1'}),setTimeout(function(){n.style.opacity='0',setTimeout(function(){n.remove()},400)},3500)}
+
+/* ── Form Submission ── */
+function submitSEOEnquiry(e){e.preventDefault();var t=document.getElementById('seoSubmitBtn'),n=document.getElementById('seoSubmitText');var a=document.getElementById('seoName').value.trim(),o=document.getElementById('seoBusiness').value.trim(),r=document.getElementById('seoPhone').value.trim(),i=document.getElementById('seoEmail').value.trim(),l=document.getElementById('seoWebsite').value.trim(),s=document.getElementById('seoBusinessType').value,d=document.getElementById('seoGoal').value,c=document.getElementById('seoStatus').value;if(!a||!o||!r||!i||!l||!s||!d||!c)return showToast('Please fill in all required fields.','error'),!1;if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i))return showToast('Please enter a valid email address.','error'),!1;if(!/^https?:\/\/.+/.test(l))return showToast('Please enter a valid website URL.','error'),!1;t&&(t.disabled=!0),n&&(n.innerHTML='Sending...'),setTimeout(function(){n&&(n.innerHTML='✓ Request Sent Successfully!'),t&&(t.style.cssText+=';box-shadow:0 0 28px -4px rgba(0,200,150,.5);'),showToast('Thank you! We will review your website and get back to you within 24 hours.','success'),setTimeout(function(){document.getElementById('seoForm').reset(),t&&(t.disabled=!1),n&&(n.innerHTML='Request My SEO Consultation <span class="arrow">→</span>'),t&&(t.style.cssText=t.style.cssText.replace(/box-shadow:[^;]+;/,''))},4e3)},1500);return!1}
+
+/* ── Hero Card 3D Tilt ── */
+(function(){var e=document.getElementById('heroCard');if(!e)return;var n=!1;document.addEventListener('mousemove',function(t){n||requestAnimationFrame(function(){var r=e.getBoundingClientRect(),a=(t.clientX-(r.left+r.width/2))/r.width,i=(t.clientY-(r.top+r.height/2))/r.height;e.style.transform='perspective(1000px) rotateX('+(i*-10+3).toFixed(1)+'deg) rotateY('+(a*12-8).toFixed(1)+'deg) scale3d(1.01,1.01,1.01)',n=!1}),n=!0});e.addEventListener('mouseleave',function(){e.style.transform='perspective(1000px) rotateX(3deg) rotateY(-8deg) scale3d(1,1,1)'})})();
+
+/* ── Smooth Anchor Scroll ── */
+(function(){document.querySelectorAll('a[href^="#"]').forEach(function(e){e.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));t&&(e.preventDefault(),t.scrollIntoView({behavior:'smooth',block:'start'}))})})})();
+</script>
+<?php get_footer(); ?>
