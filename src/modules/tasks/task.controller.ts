@@ -136,6 +136,10 @@ export const update = asyncHandler(async (req, res) => {
 export const changeStatus = asyncHandler(async (req, res) => {
   const current = await task(req.params.id);
   const user = (req as AuthRequest).user;
+  const isAdmin = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"].includes(user?.role || "");
+  if (!isAdmin && current.assignedToId !== user?.id && current.createdById !== user?.id) {
+    throw new AppError("You can only change status of tasks assigned to or created by you", 403);
+  }
   const newStatus = enumValue(TaskStatus, req.body.status, current.status);
   if (newStatus === current.status) return successResponse(res, 200, "No status change", current);
   const updateData: Prisma.TaskUpdateInput = {
@@ -157,7 +161,10 @@ export const reorder = asyncHandler(async (req, res) => {
 
 /* Delete */
 export const remove = asyncHandler(async (req, res) => {
-  await task(req.params.id);
+  const current = await task(req.params.id);
+  const user = (req as AuthRequest).user;
+  const isAdmin = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"].includes(user?.role || "");
+  if (!isAdmin && current.createdById !== user?.id) throw new AppError("You can only delete tasks you created", 403);
   await prisma.task.delete({ where: { id: req.params.id } });
   return successResponse(res, 200, "Task deleted");
 });
@@ -199,6 +206,16 @@ export const commentsCreate = asyncHandler(async (req, res) => {
     include: { author: { select: { id: true, name: true, email: true } } },
   });
   return successResponse(res, 201, "Comment added", comment);
+});
+
+export const commentsDelete = asyncHandler(async (req, res) => {
+  const user = (req as AuthRequest).user;
+  const comment = await prisma.taskComment.findUnique({ where: { id: req.params.commentId } });
+  if (!comment) throw new AppError("Comment not found", 404);
+  const isAdmin = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"].includes(user?.role || "");
+  if (!isAdmin && comment.authorId !== user?.id) throw new AppError("You can only delete your own comments", 403);
+  await prisma.taskComment.delete({ where: { id: req.params.commentId } });
+  return successResponse(res, 200, "Comment deleted");
 });
 
 /* Recurring Tasks */

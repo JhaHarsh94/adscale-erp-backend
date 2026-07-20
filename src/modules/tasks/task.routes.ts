@@ -1,7 +1,7 @@
 ﻿import { Router } from "express";
 import { allowRoles, protect } from "../../middlewares/auth.middleware";
 import {
-  addDependency, changeStatus, commentsCreate, commentsList, create, dashboard, getOne, kanban, list,
+  addDependency, changeStatus, commentsCreate, commentsDelete, commentsList, create, dashboard, getOne, kanban, list,
   recurringCreate, recurringDelete, recurringList, remove, removeDependency, reorder, update,
 } from "./task.controller";
 
@@ -24,6 +24,7 @@ router.post("/:id/dependencies", protect, allowRoles(...taskWriteRoles), addDepe
 router.delete("/:id/dependencies/:depId", protect, allowRoles(...taskWriteRoles), removeDependency);
 router.get("/:id/comments", protect, allowRoles(...taskReadRoles), commentsList);
 router.post("/:id/comments", protect, allowRoles(...taskWriteRoles), commentsCreate);
+router.delete("/:id/comments/:commentId", protect, allowRoles(...taskWriteRoles), commentsDelete);
 
 /* Recurring */
 router.get("/recurring/list", protect, allowRoles(...taskAdminRoles), recurringList);
