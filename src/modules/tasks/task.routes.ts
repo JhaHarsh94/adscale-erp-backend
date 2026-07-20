@@ -18,7 +18,7 @@ router.post("/", protect, allowRoles(...taskWriteRoles), create);
 router.get("/:id", protect, allowRoles(...taskReadRoles), getOne);
 router.put("/:id", protect, allowRoles(...taskWriteRoles), update);
 router.delete("/:id", protect, allowRoles(...taskAdminRoles), remove);
-router.post("/:id/status", protect, allowRoles(...taskWriteRoles), changeStatus);
+router.post("/:id/status", protect, changeStatus);
 router.post("/reorder", protect, allowRoles(...taskWriteRoles), reorder);
 router.post("/:id/dependencies", protect, allowRoles(...taskWriteRoles), addDependency);
 router.delete("/:id/dependencies/:depId", protect, allowRoles(...taskWriteRoles), removeDependency);
