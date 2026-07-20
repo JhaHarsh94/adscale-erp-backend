@@ -4,9 +4,9 @@ import { approve, create, dashboard, getOne, list, remove, report, today, update
 
 const router = Router();
 
-const readRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
-const writeRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
-const adminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"];
+const readRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER", "SUPER_ADMIN"];
+const writeRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER", "SUPER_ADMIN"];
+const adminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
 
 router.get("/dashboard", protect, allowRoles(...readRoles), dashboard);
 router.get("/", protect, allowRoles(...readRoles), list);

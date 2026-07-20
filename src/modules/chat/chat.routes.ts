@@ -6,7 +6,7 @@ import {
 
 const router = Router();
 
-const readRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
+const readRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER", "SUPER_ADMIN"];
 
 router.get("/rooms", protect, allowRoles(...readRoles), listRooms);
 router.get("/rooms/:id", protect, allowRoles(...readRoles), getRoom);

@@ -19,9 +19,9 @@ import {
 
 const router = Router();
 
-const ticketReadRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
-const ticketWriteRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER"];
-const ticketAdminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"];
+const ticketReadRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER", "SUPER_ADMIN"];
+const ticketWriteRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER", "SUPER_ADMIN"];
+const ticketAdminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
 
 /* Categories */
 router.get("/categories", protect, allowRoles(...ticketReadRoles), categoriesList);

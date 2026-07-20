@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-const roles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "TEAM_LEAD", "EMPLOYEE"];
+const roles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "TEAM_LEAD", "EMPLOYEE", "SUPER_ADMIN"];
 
 router.use(protect);
 router.use(allowRoles(...roles));

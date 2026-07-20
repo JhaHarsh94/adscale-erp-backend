@@ -24,7 +24,7 @@ import {
 
 const router = Router();
 
-const seoRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER"];
+const seoRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SALES_MANAGER", "SUPER_ADMIN"];
 
 router.use(protect);
 router.use(allowRoles(...seoRoles));

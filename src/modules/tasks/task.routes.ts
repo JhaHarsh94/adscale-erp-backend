@@ -7,9 +7,9 @@ import {
 
 const router = Router();
 
-const taskReadRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER"];
-const taskWriteRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER"];
-const taskAdminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER"];
+const taskReadRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "HR", "EMPLOYEE", "SALES_MANAGER", "SUPER_ADMIN"];
+const taskWriteRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "TEAM_LEAD", "SALES_MANAGER", "SUPER_ADMIN"];
+const taskAdminRoles = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"];
 
 router.get("/dashboard", protect, allowRoles(...taskReadRoles), dashboard);
 router.get("/kanban", protect, allowRoles(...taskReadRoles), kanban);
