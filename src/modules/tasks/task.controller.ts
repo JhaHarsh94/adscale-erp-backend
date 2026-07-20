@@ -136,10 +136,6 @@ export const update = asyncHandler(async (req, res) => {
 export const changeStatus = asyncHandler(async (req, res) => {
   const current = await task(req.params.id);
   const user = (req as AuthRequest).user;
-  const isAdmin = ["CEO", "DIRECTOR", "OPERATIONS_MANAGER", "SUPER_ADMIN"].includes(user?.role || "");
-  if (!isAdmin && current.assignedToId !== user?.id && current.createdById !== user?.id) {
-    throw new AppError("You can only change status of tasks assigned to or created by you", 403);
-  }
   const newStatus = enumValue(TaskStatus, req.body.status, current.status);
   if (newStatus === current.status) return successResponse(res, 200, "No status change", current);
   const updateData: Prisma.TaskUpdateInput = {
